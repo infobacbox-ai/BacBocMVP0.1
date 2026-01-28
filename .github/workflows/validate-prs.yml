@@ -35,6 +35,8 @@ jobs:
         run: pnpm install
       - name: Generate Prisma client
         run: pnpm --filter database generate
+      - name: Build web app (generates content-collections types)
+        run: pnpm --filter web build
       - name: Run type-check
         run: pnpm -w type-check
 

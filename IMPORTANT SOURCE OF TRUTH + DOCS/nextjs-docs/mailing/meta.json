@@ -1,5 +1,5 @@
 {
-  "title": "Mailing",
-  "defaultOpen": false,
-  "pages": ["overview", "plunk", "resend", "postmark", "nodemailer", "custom"]
+	"title": "Mailing",
+	"defaultOpen": false,
+	"pages": ["overview", "plunk", "resend", "postmark", "nodemailer", "custom"]
 }

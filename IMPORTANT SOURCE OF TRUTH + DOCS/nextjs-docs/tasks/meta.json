@@ -1,4 +1,4 @@
 {
-  "title": "Background tasks & cron jobs",
-  "pages": ["overview", "trigger-dev", "upstash", "..."]
+	"title": "Background tasks & cron jobs",
+	"pages": ["overview", "trigger-dev", "upstash", "..."]
 }

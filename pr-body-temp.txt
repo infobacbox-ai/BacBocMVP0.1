@@ -1,0 +1,29 @@
+## Summary
+
+This PR implements Slice 0.5 from the Slices Plan v4.3.3, adding comprehensive CI guardrails and documenting the locked tech stack for MVP0.
+
+### Key Changes
+
+- **Decision Log Updates**: Added ADR-012 (ORM=Prisma locked) and ADR-013 (Payments=LemonSqueezy locked) to formalize tech baseline
+- **Prod Mock Ban Script**: Created `check:prod-mocks` that scans production build output for forbidden mock patterns (msw, mockServiceWorker, etc.)
+- **Enhanced CI Workflow**: Extended `.github/workflows/validate-prs.yml` with:
+  - Type-check job (TypeScript validation)
+  - Boundary-checks job (UI/DB separation + MSW/mocks detection)
+  - Build job with NODE_ENV=production
+  - Prod-mock-ban job (scans `.next/` output)
+  - E2E tests job (existing)
+- **Repository Hygiene**: 
+  - `.cursorignore` for cleaner AI navigation
+  - `.cursor/rules/ci-guardrails.md` documenting mandatory CI rules
+
+### Validation Results
+
+✅ **Lint**: Passed (395 files checked)  
+✅ **UI/DB Boundary**: Passed (no Prisma imports in apps/web)  
+✅ **MSW/Mocks Check**: Passed (no mock imports in source)  
+⚠️ **Type-check**: Pre-existing TypeScript errors (not related to Slice 0.5 changes)
+
+### Reference
+
+- Slices Plan v4.3.3 — Quality gates, Prod mock ban, UI/DB boundary
+- Slice: 0.5

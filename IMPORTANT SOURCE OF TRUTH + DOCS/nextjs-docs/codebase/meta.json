@@ -1,13 +1,13 @@
 {
-  "title": "Working with the codebase",
-  "defaultOpen": false,
-  "pages": [
-    "structure",
-    "vscode",
-    "update",
-    "dependencies",
-    "formatting-and-linting",
-    "dependabot",
-    "..."
-  ]
+	"title": "Working with the codebase",
+	"defaultOpen": false,
+	"pages": [
+		"structure",
+		"vscode",
+		"update",
+		"dependencies",
+		"formatting-and-linting",
+		"dependabot",
+		"..."
+	]
 }

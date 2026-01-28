@@ -1,5 +1,5 @@
 {
-  "title": "Monitoring",
-  "defaultOpen": false,
-  "pages": ["overview", "sentry", "..."]
+	"title": "Monitoring",
+	"defaultOpen": false,
+	"pages": ["overview", "sentry", "..."]
 }

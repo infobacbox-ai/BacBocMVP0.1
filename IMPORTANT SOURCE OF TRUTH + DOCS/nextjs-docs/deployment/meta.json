@@ -1,14 +1,14 @@
 {
-  "title": "Deployment",
-  "pages": [
-    "overview",
-    "vercel",
-    "render",
-    "flydotio",
-    "netlify",
-    "docker",
-    "coolify",
-    "standalone-api",
-    "..."
-  ]
+	"title": "Deployment",
+	"pages": [
+		"overview",
+		"vercel",
+		"render",
+		"flydotio",
+		"netlify",
+		"docker",
+		"coolify",
+		"standalone-api",
+		"..."
+	]
 }

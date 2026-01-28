@@ -1,0 +1,31 @@
+﻿# Build outputs
+.next/
+dist/
+build/
+out/
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Generated
+packages/database/prisma/generated/
+packages/database/prisma/zod/
+
+# Test artifacts
+playwright-report/
+test-results/
+
+# IDE & OS
+.idea/
+*.log
+.DS_Store
+Thumbs.db
+
+# Env files (ne jamais lire les secrets)
+.env
+.env.*
+!.env.example
+
+# Supastarter docs zip (use nextjs-docs_INDEX.md instead)
+IMPORTANT SOURCE OF TRUTH + DOCS/nextjs-docs.zip

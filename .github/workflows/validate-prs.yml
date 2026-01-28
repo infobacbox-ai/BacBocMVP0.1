@@ -2,7 +2,7 @@ name: Validate PRs
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, master]
 
 env:
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -19,10 +19,91 @@ jobs:
           version: latest
       - name: Run Biome
         run: biome ci .
+
+  type-check:
+    name: Type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm install
+      - name: Generate Prisma client
+        run: pnpm --filter database generate
+      - name: Run type-check
+        run: pnpm -w type-check
+
+  boundary-checks:
+    name: UI/DB boundary checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check UI/DB boundary (Slices Plan rule)
+        run: |
+          echo "Checking UI/DB boundary: apps/web must not import packages/database or prisma..."
+          # Pattern from Slices Plan: rg -n "packages/database|prisma" apps/web
+          # Exception: next.config.ts uses @prisma/nextjs-monorepo-workaround-plugin (webpack plugin, not runtime)
+          if grep -rE "(packages/database|from ['\"]@prisma|from ['\"]prisma)" --include="*.ts" --include="*.tsx" --exclude="next.config.ts" apps/web/; then
+            echo "❌ FAIL: Found DB/Prisma imports in apps/web"
+            echo "Rule: apps/web must NOT import Prisma or DB internals."
+            echo "Use @repo/api procedures or @repo/shared contract types instead."
+            exit 1
+          fi
+          echo "✅ UI/DB boundary OK"
+      - name: Check no MSW/mocks in source code
+        run: |
+          echo "Checking for MSW/mock patterns in source..."
+          if grep -rE "(from ['\"]msw['\"]|setupWorker|setupServer)" --include="*.ts" --include="*.tsx" apps/ packages/; then
+            echo "❌ FAIL: Found MSW/mock imports in source code"
+            echo "Mocks must only be used in tests/ or behind NODE_ENV=development guards."
+            exit 1
+          fi
+          echo "✅ No MSW/mock imports in source"
+
+  build:
+    name: Build production
+    runs-on: ubuntu-latest
+    needs: [lint, type-check, boundary-checks]
+    env:
+      NODE_ENV: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm install
+      - name: Generate Prisma client
+        run: pnpm --filter database generate
+      - name: Build (NODE_ENV=production)
+        run: pnpm -w build
+
+  prod-mock-ban:
+    name: Prod mock ban check
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm install
+      - name: Generate Prisma client
+        run: pnpm --filter database generate
+      - name: Build and scan for mocks
+        run: pnpm check:prod-mocks
+
   e2e:
     name: Run e2e tests
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

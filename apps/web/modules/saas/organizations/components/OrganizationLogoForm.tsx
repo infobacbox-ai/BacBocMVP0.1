@@ -95,8 +95,8 @@ export function OrganizationLogoForm() {
 			title={t("organizations.settings.logo.title")}
 			description={t("organizations.settings.logo.description")}
 		>
-		<div className="relative size-24 rounded-full" {...getRootProps()}>
-			<input {...getInputProps()} />
+			<div className="relative size-24 rounded-full" {...getRootProps()}>
+				<input {...getInputProps()} />
 				<OrganizationLogo
 					className="size-24 cursor-pointer text-xl"
 					logoUrl={activeOrganization.logo}

@@ -10,7 +10,8 @@
 			"recommended": true,
 			"suspicious": {
 				"noExplicitAny": "off",
-				"noArrayIndexKey": "off"
+				"noArrayIndexKey": "off",
+				"noCommentText": "off"
 			},
 			"complexity": {
 				"noForEach": "off"

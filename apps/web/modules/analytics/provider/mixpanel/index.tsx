@@ -1,6 +1,6 @@
 "use client";
 
-// @ts-ignore package is not installed per default
+// @ts-expect-error package is not installed per default
 import mixpanel from "mixpanel-browser";
 import { useEffect } from "react";
 

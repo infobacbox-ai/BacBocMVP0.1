@@ -49,23 +49,23 @@ export function StatsTileChart({
 							stopOpacity={0}
 						/>
 					</linearGradient>
-			</defs>
-			<CartesianGrid vertical={false} />
-			{/* @ts-ignore - React 19 compat issue with recharts */}
-			<XAxis
-				dataKey="month"
-				tickLine={false}
-				axisLine={false}
-				tickMargin={8}
-			/>
-			{/* @ts-ignore - React 19 compat issue with recharts */}
-			<ChartTooltip
-				content={
-					<ChartTooltipContent formatter={tooltipFormatter} />
-				}
-			/>
-			{/* @ts-ignore - React 19 compat issue with recharts */}
-			<Area
+				</defs>
+				<CartesianGrid vertical={false} />
+				{/* @ts-ignore - React 19 compat issue with recharts */}
+				<XAxis
+					dataKey="month"
+					tickLine={false}
+					axisLine={false}
+					tickMargin={8}
+				/>
+				{/* @ts-ignore - React 19 compat issue with recharts */}
+				<ChartTooltip
+					content={
+						<ChartTooltipContent formatter={tooltipFormatter} />
+					}
+				/>
+				{/* @ts-ignore - React 19 compat issue with recharts */}
+				<Area
 					dataKey={dataKey}
 					type="natural"
 					fill={`url(#${gradientId})`}

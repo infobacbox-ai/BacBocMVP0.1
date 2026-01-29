@@ -6,13 +6,13 @@ const pirschCode = process.env.NEXT_PUBLIC_PIRSCH_CODE as string;
 
 export function AnalyticsScript() {
 	return (
-		<Script
-			defer
-			type="text/javascript"
-			src="https://api.pirsch.io/pirsch-extended.js"
-			id="pirschextendedjs"
-			data-code={pirschCode}
-		/>
+		<>
+			<Script
+				src="https://api.pirsch.io/pirsch-extended.js"
+				id="pirschextendedjs"
+				data-code={pirschCode}
+			/>
+		</>
 	);
 }
 

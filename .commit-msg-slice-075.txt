@@ -1,0 +1,38 @@
+feat(slice-0.75): add contract types, entitlements API, and route scaffolding
+
+Implements Slice 0.75 scaffolding required for Slice 1 dashboard implementation.
+
+**Contract Types Package (`packages/shared`):**
+- Add canonical BackBox contract types from Contract Spec v0.4
+- Define EntitlementStatus, AccessState, error codes, and output schemas
+- Export GetEntitlementsOutput, MiniRecapOutput, FinalRecapOutput types
+
+**API Procedure (`me.getEntitlements`):**
+- Implement GET /api/rpc/me/entitlements endpoint
+- Add dev mock returning TRIAL_AVAILABLE state
+- Add production stub (full implementation in Slice 3)
+- Integrate me module into API router
+
+**Client Wrapper:**
+- Add entitlements-client.ts for single surface access
+- Support both Server Components and TanStack Query usage
+
+**Route Stubs:**
+- Add /access page (access gate with entitlement routing)
+- Add /backbox page (dashboard placeholder)
+- Add /backbox/start page (start project form placeholder)
+- Add /backbox/project/[projectId] page (project view placeholder)
+- All routes follow (saas) layout patterns with auth checks
+
+**Dependencies:**
+- Add @repo/shared to API and web packages
+- Update pnpm lockfile
+
+Fixes all critical gaps from Slice 1 Readiness Review:
+- Contract types package now exists
+- me.getEntitlements procedure implemented
+- BackBox routes scaffolded
+
+Total: 12 new files, 3 modified files, ~550 lines added
+
+See SLICE-0.75-IMPLEMENTATION-SUMMARY.md for details.

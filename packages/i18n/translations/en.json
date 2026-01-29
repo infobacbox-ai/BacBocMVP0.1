@@ -824,8 +824,12 @@
 		"description": "To continue, please select a plan."
 	},
 	"access": {
-		"title": "Access",
-		"description": "Checking your access..."
+		"title": "Access to BackBox",
+		"description": "Start analyzing your texts now",
+		"cta": {
+			"trial": "Start free trial",
+			"premium": "Go Premium"
+		}
 	},
 	"backbox": {
 		"dashboard": {

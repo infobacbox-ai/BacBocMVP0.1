@@ -37,24 +37,16 @@ export default async function BackBoxProjectPage({
 	return (
 		<div className="container mx-auto py-8">
 			<PageHeader
-				title={t("backbox.project.title", "Project")}
-				subtitle={t("backbox.project.id", "ID: {id}", {
-					id: projectId,
-				})}
+				title={t("backbox.project.title")}
+				subtitle={t("backbox.project.id", { id: projectId })}
 			/>
 
 			<div className="mt-8 rounded-lg border border-border bg-card p-8 text-center">
 				<h2 className="text-lg font-semibold">
-					{t(
-						"backbox.project.placeholder",
-						"Project View Coming Soon",
-					)}
+					{t("backbox.project.placeholder")}
 				</h2>
 				<p className="mt-2 text-sm text-muted-foreground">
-					{t(
-						"backbox.project.implementation",
-						"This is a placeholder. Implementation will be completed in Slice 1.",
-					)}
+					{t("backbox.project.implementation")}
 				</p>
 				<p className="mt-4 text-xs text-muted-foreground">
 					Project ID: {projectId}

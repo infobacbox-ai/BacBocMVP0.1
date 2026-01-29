@@ -22,12 +22,8 @@ export default async function AccessPage() {
 
 	return (
 		<div className="container mx-auto py-8">
-			<h1 className="text-2xl font-bold">
-				{t("access.title", "Access")}
-			</h1>
-			<p className="text-muted-foreground">
-				{t("access.description", "Checking your access...")}
-			</p>
+			<h1 className="text-2xl font-bold">{t("access.title")}</h1>
+			<p className="text-muted-foreground">{t("access.description")}</p>
 		</div>
 	);
 }

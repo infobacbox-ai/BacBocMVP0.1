@@ -8,6 +8,7 @@ export function AnalyticsScript() {
 	return (
 		<Script
 			data-website-id={umamiTrackingId}
+			// @ts-expect-error - Next.js Script src prop not recognized with React 19 types
 			src="https://analytics.eu.umami.is/script.js"
 		/>
 	);

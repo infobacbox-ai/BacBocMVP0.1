@@ -30,6 +30,7 @@ export function ContactForm() {
 	);
 
 	const form = useForm<ContactFormValues>({
+		// @ts-expect-error - Zod schema type compatibility with React 19
 		resolver: zodResolver(contactFormSchema),
 		defaultValues: {
 			name: "",

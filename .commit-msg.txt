@@ -1,9 +1,28 @@
-fix: add BETTER_AUTH_SECRET to CI workflow
+fix: resolve Slice 0.5 blocking items - UI/DB boundary violations, checklist, and ORM cleanup
 
-Better Auth requires the BETTER_AUTH_SECRET environment variable
-during initialization. Without it, the build fails with:
-"You are using the default secret. Please set BETTER_AUTH_SECRET..."
+CRITICAL FIXES:
+- Fix UI/DB boundary check pattern to catch @repo/database imports
+- Create API procedures for getInvitation and getOrganization
+- Remove @repo/database imports from apps/web (2 violations)
+- Remove @repo/database dependency from apps/web/package.json
 
-Added BETTER_AUTH_SECRET to all build-related jobs with a dummy
-fallback value for CI purposes. No actual authentication happens
-during build - only module initialization needs to be satisfied.
+HIGH PRIORITY:
+- Create comprehensive SLICE_CHECKLIST.md for future slices
+- Document required env vars in ci-guardrails.md
+- Prevent "5-commit fix" anti-pattern
+
+MEDIUM PRIORITY:
+- Remove unused Drizzle ORM dependencies (aligns with ADR-012)
+- Update ADR-012 with cleanup note
+
+FILES CHANGED:
+- New: 2 API procedures + SLICE_CHECKLIST.md + summary doc
+- Modified: 10 files (CI workflow, violations, dependencies, docs)
+
+VERIFICATION:
+- ✅ Linting passes (pnpm lint)
+- ✅ No @repo/database imports in apps/web
+- ✅ All boundary violations resolved
+- ✅ Decision log updated
+
+Slice 0.5 is now 100% complete and ready to merge.

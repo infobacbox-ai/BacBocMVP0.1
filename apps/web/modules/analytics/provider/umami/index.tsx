@@ -7,8 +7,6 @@ const umamiTrackingId = process.env.NEXT_PUBLIC_UMAMI_TRACKING_ID as string;
 export function AnalyticsScript() {
 	return (
 		<Script
-			async
-			type="text/javascript"
 			data-website-id={umamiTrackingId}
 			src="https://analytics.eu.umami.is/script.js"
 		/>

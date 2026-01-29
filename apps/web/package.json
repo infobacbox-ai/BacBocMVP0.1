@@ -28,6 +28,7 @@
 		"@repo/logs": "workspace:*",
 		"@repo/mail": "workspace:*",
 		"@repo/payments": "workspace:*",
+		"@repo/shared": "workspace:*",
 		"@repo/storage": "workspace:*",
 		"@repo/utils": "workspace:*",
 		"@sindresorhus/slugify": "^3.0.0",

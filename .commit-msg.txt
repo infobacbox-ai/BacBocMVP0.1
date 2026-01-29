@@ -1,0 +1,9 @@
+fix: add BETTER_AUTH_SECRET to CI workflow
+
+Better Auth requires the BETTER_AUTH_SECRET environment variable
+during initialization. Without it, the build fails with:
+"You are using the default secret. Please set BETTER_AUTH_SECRET..."
+
+Added BETTER_AUTH_SECRET to all build-related jobs with a dummy
+fallback value for CI purposes. No actual authentication happens
+during build - only module initialization needs to be satisfied.

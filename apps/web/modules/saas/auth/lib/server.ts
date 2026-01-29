@@ -1,6 +1,6 @@
 import "server-only";
 import { auth } from "@repo/auth";
-import { getInvitationById } from "@repo/database";
+import { orpcClient } from "@shared/lib/orpc-client";
 import { headers } from "next/headers";
 import { cache } from "react";
 
@@ -68,7 +68,7 @@ export const getUserPasskeys = cache(async () => {
 
 export const getInvitation = cache(async (id: string) => {
 	try {
-		return await getInvitationById(id);
+		return await orpcClient.organizations.getInvitation({ id });
 	} catch {
 		return null;
 	}

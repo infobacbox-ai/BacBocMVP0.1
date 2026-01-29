@@ -52,7 +52,7 @@ jobs:
           echo "Checking UI/DB boundary: apps/web must not import packages/database or prisma..."
           # Pattern from Slices Plan: rg -n "packages/database|prisma" apps/web
           # Exception: next.config.ts uses @prisma/nextjs-monorepo-workaround-plugin (webpack plugin, not runtime)
-          if grep -rE "(packages/database|from ['\"]@prisma|from ['\"]prisma)" --include="*.ts" --include="*.tsx" --exclude="next.config.ts" apps/web/; then
+          if grep -rE "(packages/database|from ['\"]@repo/database|from ['\"]@prisma|from ['\"]prisma)" --include="*.ts" --include="*.tsx" --exclude="next.config.ts" apps/web/; then
             echo "❌ FAIL: Found DB/Prisma imports in apps/web"
             echo "Rule: apps/web must NOT import Prisma or DB internals."
             echo "Use @repo/api procedures or @repo/shared contract types instead."

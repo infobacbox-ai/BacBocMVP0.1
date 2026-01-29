@@ -60,6 +60,23 @@ No MSW imports in production source paths:
 - `apps/web/tests/` (Playwright)
 - `apps/web/src/mocks/` (dev-only, must be tree-shaken)
 
+## Required Environment Variables for CI
+
+All CI jobs that run builds require these environment variables with fallback values:
+
+- `DATABASE_URL`: PostgreSQL connection string
+- `RESEND_API_KEY`: Email service API key
+- `BETTER_AUTH_SECRET`: Authentication secret (min 32 chars)
+
+**Where to add fallbacks:** `.github/workflows/validate-prs.yml` in the `env` section of each build job.
+
+**Example fallback values:**
+```yaml
+DATABASE_URL: 'postgresql://user:pass@localhost:5432/dbname'
+RESEND_API_KEY: 're_dummy_key_for_ci_build'
+BETTER_AUTH_SECRET: 'dummy_secret_for_ci_build_at_least_32_chars_long'
+```
+
 ## CI Jobs (validate-prs.yml)
 
 | Job | Command | Blocks merge |

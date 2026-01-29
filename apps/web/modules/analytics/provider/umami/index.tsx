@@ -9,6 +9,7 @@ export function AnalyticsScript() {
 		<Script
 			data-website-id={umamiTrackingId}
 			src="https://analytics.eu.umami.is/script.js"
+			{...({}as any)}
 		/>
 	);
 }

@@ -27,7 +27,7 @@ export function OrganizationLogoForm() {
 	);
 
 	const { getRootProps, getInputProps } = useDropzone({
-		onDrop: (acceptedFiles) => {
+		onDrop: (acceptedFiles: File[]) => {
 			setImage(acceptedFiles[0]);
 			setCropDialogOpen(true);
 		},
@@ -36,7 +36,7 @@ export function OrganizationLogoForm() {
 			"image/jpeg": [".jpg", ".jpeg"],
 		},
 		multiple: false,
-	});
+	} as any);
 
 	if (!activeOrganization) {
 		return null;
@@ -95,8 +95,8 @@ export function OrganizationLogoForm() {
 			title={t("organizations.settings.logo.title")}
 			description={t("organizations.settings.logo.description")}
 		>
-			<div className="relative size-24 rounded-full" {...getRootProps()}>
-				<input {...getInputProps()} />
+		<div className="relative size-24 rounded-full" {...getRootProps()}>
+			<input {...(getInputProps() as any)} />
 				<OrganizationLogo
 					className="size-24 cursor-pointer text-xl"
 					logoUrl={activeOrganization.logo}

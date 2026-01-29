@@ -10,6 +10,7 @@ export function AnalyticsScript() {
 			src="https://api.pirsch.io/pirsch-extended.js"
 			id="pirschextendedjs"
 			data-code={pirschCode}
+			{...({}as any)}
 		/>
 	);
 }

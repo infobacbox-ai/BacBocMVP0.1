@@ -9,6 +9,7 @@ export function AnalyticsScript() {
 		<Script
 			data-domain={plausibleUrl}
 			src="https://plausible.io/js/script.js"
+			{...({}as any)}
 		/>
 	);
 }

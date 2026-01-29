@@ -27,7 +27,7 @@ export function UserAvatarUpload({
 	);
 
 	const { getRootProps, getInputProps } = useDropzone({
-		onDrop: (acceptedFiles) => {
+		onDrop: (acceptedFiles: File[]) => {
 			setImage(acceptedFiles[0]);
 			setCropDialogOpen(true);
 		},
@@ -36,7 +36,7 @@ export function UserAvatarUpload({
 			"image/jpeg": [".jpg", ".jpeg"],
 		},
 		multiple: false,
-	});
+	} as any);
 
 	if (!user) {
 		return null;
@@ -83,8 +83,8 @@ export function UserAvatarUpload({
 
 	return (
 		<>
-			<div className="relative size-24 rounded-full" {...getRootProps()}>
-				<input {...getInputProps()} />
+		<div className="relative size-24 rounded-full" {...getRootProps()}>
+			<input {...(getInputProps() as any)} />
 				<UserAvatar
 					className="size-24 cursor-pointer text-xl"
 					avatarUrl={user.image}

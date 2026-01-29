@@ -1,0 +1,94 @@
+---
+title: Internationalization
+description: Learn how to use internationalization in supastarter.
+---
+
+For internationaliztion supastarter integrates [next-intl](https://next-intl-docs.vercel.app/).
+
+<Callout emoji="💡">
+  **Why next-intl:** <br />
+  next-intl is a lightweight internationalization library for Next.js and comes
+  with support for both server and client components in the app router. It also
+  supports automatic language detection and url based language routing.
+</Callout>
+
+## Usage
+
+### Server components
+
+In server components you can use the `getTranslations` method:
+
+```tsx copy
+import { getTranslations } from "next-intl/server";
+
+export default async function MyServerComponent() {
+  const t = await getTranslations();
+
+  return <div>{t("hello")}</div>;
+}
+```
+
+### Client components
+
+In client components you can use the `useTranslations` hook like so:
+
+```tsx copy
+"use client";
+import { useTranslations } from "next-intl";
+
+export default function MyClientComponent() {
+  const t = useTranslations();
+
+  return <div>{t("hello")}</div>;
+}
+```
+
+## Translations
+
+Translations are defined in the `packages/i18n/translations` folder. The default locale is `en` and the translations are stored in `en.json`.
+
+```json copy
+{
+  "hello": "Hello World!"
+}
+```
+
+### Add a new locale
+
+To add a new locale you need to create a new file in the `/packages/i18n/translations` folder with the locale name as the file name. For example `fr.json` for French.
+
+```json copy
+{
+  "hello": "Bonjour le monde!"
+}
+```
+
+Then register this locale in the `config/index.ts` file:
+
+```ts copy
+export const appConfig = {
+  i18n: {
+    locales: ["en", "de", "es", "fr" /* 👈🏼 */] as const,
+    defaultLocale: "en" as const,
+    localeLabels: {
+      en: "English",
+      es: "Español",
+      de: "Deutsch",
+      fr: "Français" /* 👈🏼 */,
+    },
+  },
+  // ...
+};
+```
+
+## Disable internationalization
+
+If you don't want to use internationalization or only want to activate it later on, you can disable it by setting the `i18n.enabled` flag to `false` in the `config/index.ts` file.
+
+```tsx
+const config = {
+  i18n: {
+    enabled: false,
+  },
+};
+```

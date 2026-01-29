@@ -1,0 +1,34 @@
+---
+title: Project structure
+description: Learn how the supastarter codebase is structured.
+---
+
+supastarter uses a monorepo structure, which allows you to easily extend your project (for example with a mobile app) and share code and configs between applications.
+
+## Basic repository structure
+
+By default the monorepo contains the following apps and packages:
+
+<Files>
+  <Folder
+    name="apps – Main application (includes marketing pages and SaaS)"
+    defaultOpen
+  >
+    <Folder name="web" />
+  </Folder>
+  <Folder name="config – Configuration of the project" />
+  <Folder name="packages" defaultOpen>
+    <Folder name="auth – Authentication setup" />
+    <Folder name="api – API server (including all features logic)" />
+    <Folder name="database – Database setup" />
+    <Folder name="i18n – Translations and localization setup" />
+    <Folder name="mail – Mail templates and provider" />
+    <Folder name="storage – Storage providers and upload logic" />
+    <Folder name="util – Shared utilities and helpers" />
+  </Folder>
+  <Folder name="tooling – Configuration for the monorepo" defaultOpen>
+    <Folder name="eslint – ESLint config" />
+    <Folder name="tailwind – Tailwind config" />
+    <Folder name="typescript – TypeScript config" />
+  </Folder>
+</Files>

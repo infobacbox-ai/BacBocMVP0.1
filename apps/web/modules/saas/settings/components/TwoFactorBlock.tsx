@@ -241,9 +241,9 @@ export function TwoFactorBlock() {
 									{t(
 										"settings.account.security.twoFactor.dialog.totpUrl.description",
 									)}
-							</p>
-							<Card className="flex flex-col items-center gap-4 p-6">
-								<QRCode title={totpURI} value={totpURI} />
+								</p>
+								<Card className="flex flex-col items-center gap-4 p-6">
+									<QRCode title={totpURI} value={totpURI} />
 
 									{totpURISecret && (
 										<p className="text-xs text-muted-foreground text-center">

@@ -44,6 +44,7 @@ function InputOTPSlot({
 }) {
 	const inputOTPContext = React.useContext(OTPInputContext);
 	const { char, hasFakeCaret, isActive } =
+		// @ts-expect-error - React 19 incompatibility with input-otp OTPInputContext slots property
 		inputOTPContext?.slots[index] ?? {};
 
 	return (

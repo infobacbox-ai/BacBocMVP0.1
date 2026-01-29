@@ -7,6 +7,7 @@ const pirschCode = process.env.NEXT_PUBLIC_PIRSCH_CODE as string;
 export function AnalyticsScript() {
 	return (
 		<Script
+			// @ts-expect-error - React 19 stricter JSX type checking incompatibility with Next.js Script 'src' prop
 			src="https://api.pirsch.io/pirsch-extended.js"
 			id="pirschextendedjs"
 			data-code={pirschCode}

@@ -19,21 +19,22 @@ export function ClientProviders({ children }: PropsWithChildren) {
 				shallowRouting
 				delay={250}
 			>
-				<ThemeProvider
-					attribute="class"
-					disableTransitionOnChange
-					enableSystem
-					defaultTheme={config.ui.defaultTheme}
-					themes={config.ui.enabledThemes}
-				>
-					<ApiClientProvider>
-						{children}
+			{/* @ts-expect-error - React 19 incompatibility with next-themes ThemeProvider children prop */}
+			<ThemeProvider
+				attribute="class"
+				disableTransitionOnChange
+				enableSystem
+				defaultTheme={config.ui.defaultTheme}
+				themes={config.ui.enabledThemes}
+			>
+				<ApiClientProvider>
+					{children}
 
-						<Toaster position="top-right" />
-						<ConsentBanner />
-						<AnalyticsScript />
-					</ApiClientProvider>
-				</ThemeProvider>
+					<Toaster position="top-right" />
+					<ConsentBanner />
+					<AnalyticsScript />
+				</ApiClientProvider>
+			</ThemeProvider>
 			</ProgressProvider>
 		</ApiClientProvider>
 	);

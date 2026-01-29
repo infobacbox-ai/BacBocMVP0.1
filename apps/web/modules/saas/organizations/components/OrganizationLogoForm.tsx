@@ -26,6 +26,7 @@ export function OrganizationLogoForm() {
 		orpc.organizations.createLogoUploadUrl.mutationOptions(),
 	);
 
+	// @ts-expect-error - React 19 incompatibility with react-dropzone types
 	const { getRootProps, getInputProps } = useDropzone({
 		onDrop: (acceptedFiles) => {
 			setImage(acceptedFiles[0]);
@@ -95,8 +96,9 @@ export function OrganizationLogoForm() {
 			title={t("organizations.settings.logo.title")}
 			description={t("organizations.settings.logo.description")}
 		>
-			<div className="relative size-24 rounded-full" {...getRootProps()}>
-				<input {...getInputProps()} />
+		<div className="relative size-24 rounded-full" {...getRootProps()}>
+			{/* @ts-expect-error - React 19 incompatibility with react-dropzone getInputProps types */}
+			<input {...getInputProps()} />
 				<OrganizationLogo
 					className="size-24 cursor-pointer text-xl"
 					logoUrl={activeOrganization.logo}

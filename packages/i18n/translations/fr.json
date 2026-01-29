@@ -824,8 +824,12 @@
 		"description": "To continue, please select a plan."
 	},
 	"access": {
-		"title": "Accès",
-		"description": "Vérification de votre accès..."
+		"title": "Accès à BackBox",
+		"description": "Commencez votre analyse de texte dès maintenant",
+		"cta": {
+			"trial": "Démarrer l'essai gratuit",
+			"premium": "Passer Premium"
+		}
 	},
 	"backbox": {
 		"dashboard": {

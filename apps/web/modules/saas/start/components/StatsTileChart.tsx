@@ -57,13 +57,11 @@ export function StatsTileChart({
 					axisLine={false}
 					tickMargin={8}
 				/>
-				{/* @ts-expect-error - Recharts components not compatible with React 19 types */}
 				<ChartTooltip
 					content={
 						<ChartTooltipContent formatter={tooltipFormatter} />
 					}
 				/>
-				{/* @ts-expect-error - Recharts components not compatible with React 19 types */}
 				<Area
 					dataKey={dataKey}
 					type="natural"

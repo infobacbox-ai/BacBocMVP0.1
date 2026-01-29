@@ -96,10 +96,10 @@ export function OrganizationLogoForm() {
 			title={t("organizations.settings.logo.title")}
 			description={t("organizations.settings.logo.description")}
 		>
-		<div className="relative size-24 rounded-full" {...getRootProps()}>
-			{/* @ts-expect-error - Dropzone input props not compatible with React 19 */}
-			<input {...getInputProps()} />
-			<OrganizationLogo
+			<div className="relative size-24 rounded-full" {...getRootProps()}>
+				{/* @ts-expect-error - Dropzone input props not compatible with React 19 */}
+				<input {...getInputProps()} />
+				<OrganizationLogo
 					className="size-24 cursor-pointer text-xl"
 					logoUrl={activeOrganization.logo}
 					name={activeOrganization.name ?? ""}

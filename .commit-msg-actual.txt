@@ -1,0 +1,23 @@
+feat(slice-1): upgrade Zod to v4 and fix linting issues
+
+Resolves technical debt from TECHNICAL-DEBT-ZOD-DOWNGRADE.md
+
+Changes:
+- Upgrade zod from v3.23.8 to v4.3.6 across all packages
+- Upgrade @hookform/resolvers from 3.9.1 to 5.2.2
+- Update all Zod imports to use 'zod/v4' path (23+ files)
+- Remove pnpm packageExtensions workaround (no longer needed)
+- Document successful upgrade in ZOD-V4-UPGRADE-SUCCESS.md
+
+Code quality improvements:
+- Remove unnecessary React fragments in analytics providers
+- Fix indentation in docs page MDXContent component
+- All files pass biome linting and type-checking
+
+Benefits:
+- No more peer dependency warnings from better-call
+- Access to Zod v4 features and improvements
+- Consistent Zod version across entire monorepo
+- Clean linting with zero errors
+
+Files modified: 51 files across apps/web, packages/api, packages/database, packages/payments

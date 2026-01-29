@@ -242,9 +242,9 @@ export function TwoFactorBlock() {
 										"settings.account.security.twoFactor.dialog.totpUrl.description",
 									)}
 								</p>
-							<Card className="flex flex-col items-center gap-4 p-6">
-								{/* @ts-expect-error - React 19 compat */}
-								<QRCode title={totpURI} value={totpURI} />
+								<Card className="flex flex-col items-center gap-4 p-6">
+									{/* @ts-expect-error - React 19 compat */}
+									<QRCode title={totpURI} value={totpURI} />
 
 									{totpURISecret && (
 										<p className="text-xs text-muted-foreground text-center">

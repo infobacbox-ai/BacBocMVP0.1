@@ -83,8 +83,8 @@ export function UserAvatarUpload({
 
 	return (
 		<>
-		<div className="relative size-24 rounded-full" {...getRootProps()}>
-			<input {...(getInputProps() as any)} />
+			<div className="relative size-24 rounded-full" {...getRootProps()}>
+				<input {...(getInputProps() as any)} />
 				<UserAvatar
 					className="size-24 cursor-pointer text-xl"
 					avatarUrl={user.image}

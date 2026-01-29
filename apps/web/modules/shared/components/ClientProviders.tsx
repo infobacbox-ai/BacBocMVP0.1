@@ -19,16 +19,16 @@ export function ClientProviders({ children }: PropsWithChildren) {
 				shallowRouting
 				delay={250}
 			>
-			<ThemeProvider
-				attribute="class"
-				disableTransitionOnChange
-				enableSystem
-				defaultTheme={config.ui.defaultTheme}
-				themes={config.ui.enabledThemes}
-				{...({} as any)}
-			>
-				<ApiClientProvider>
-					{children}
+				<ThemeProvider
+					attribute="class"
+					disableTransitionOnChange
+					enableSystem
+					defaultTheme={config.ui.defaultTheme}
+					themes={config.ui.enabledThemes}
+					{...({} as any)}
+				>
+					<ApiClientProvider>
+						{children}
 
 						<Toaster position="top-right" />
 						<ConsentBanner />

@@ -106,15 +106,15 @@ export function OtpForm() {
 							<FormItem>
 								<FormLabel>{t("auth.verify.code")}</FormLabel>
 								<FormControl>
-								<InputOTP
-									maxLength={6}
-									{...field}
-									autoComplete="one-time-code"
-									onChange={(value: string) => {
-										field.onChange(value);
-										onSubmit();
-									}}
-								>
+									<InputOTP
+										maxLength={6}
+										{...field}
+										autoComplete="one-time-code"
+										onChange={(value: string) => {
+											field.onChange(value);
+											onSubmit();
+										}}
+									>
 										<InputOTPGroup>
 											<InputOTPSlot
 												className="size-10 text-lg"

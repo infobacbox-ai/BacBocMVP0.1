@@ -50,28 +50,28 @@ export function StatsTileChart({
 						/>
 					</linearGradient>
 				</defs>
-			<CartesianGrid vertical={false} />
-			{/* @ts-expect-error - React 19 compat */}
-			<XAxis
-				dataKey="month"
-				tickLine={false}
-				axisLine={false}
-				tickMargin={8}
-			/>
-			{/* @ts-expect-error - React 19 compat */}
-			<ChartTooltip
-				content={
-					<ChartTooltipContent formatter={tooltipFormatter} />
-				}
-			/>
-			{/* @ts-expect-error - React 19 compat */}
-			<Area
-				dataKey={dataKey}
-				type="natural"
-				fill={`url(#${gradientId})`}
-				stroke={`var(--color-${dataKey})`}
-				strokeWidth={2}
-			/>
+				<CartesianGrid vertical={false} />
+				{/* @ts-expect-error - React 19 compat */}
+				<XAxis
+					dataKey="month"
+					tickLine={false}
+					axisLine={false}
+					tickMargin={8}
+				/>
+				{/* @ts-expect-error - React 19 compat */}
+				<ChartTooltip
+					content={
+						<ChartTooltipContent formatter={tooltipFormatter} />
+					}
+				/>
+				{/* @ts-expect-error - React 19 compat */}
+				<Area
+					dataKey={dataKey}
+					type="natural"
+					fill={`url(#${gradientId})`}
+					stroke={`var(--color-${dataKey})`}
+					strokeWidth={2}
+				/>
 			</AreaChart>
 		</ChartContainer>
 	);

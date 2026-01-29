@@ -50,26 +50,26 @@ export function StatsTileChart({
 						/>
 					</linearGradient>
 				</defs>
-			<CartesianGrid vertical={false} />
-			{/* @ts-expect-error - React 19 incompatibility with recharts component types */}
-			<XAxis
-				dataKey="month"
-				tickLine={false}
-				axisLine={false}
-				tickMargin={8}
-			/>
-			{/* @ts-expect-error - React 19 incompatibility with recharts component types */}
-			<ChartTooltip
-				content={
-					<ChartTooltipContent formatter={tooltipFormatter} />
-				}
-			/>
-			{/* @ts-expect-error - React 19 incompatibility with recharts component types */}
-			<Area
-				dataKey={dataKey}
-				type="natural"
-				fill={`url(#${gradientId})`}
-				stroke={`var(--color-${dataKey})`}
+				<CartesianGrid vertical={false} />
+				{/* @ts-expect-error - React 19 incompatibility with recharts component types */}
+				<XAxis
+					dataKey="month"
+					tickLine={false}
+					axisLine={false}
+					tickMargin={8}
+				/>
+				{/* @ts-expect-error - React 19 incompatibility with recharts component types */}
+				<ChartTooltip
+					content={
+						<ChartTooltipContent formatter={tooltipFormatter} />
+					}
+				/>
+				{/* @ts-expect-error - React 19 incompatibility with recharts component types */}
+				<Area
+					dataKey={dataKey}
+					type="natural"
+					fill={`url(#${gradientId})`}
+					stroke={`var(--color-${dataKey})`}
 					strokeWidth={2}
 				/>
 			</AreaChart>

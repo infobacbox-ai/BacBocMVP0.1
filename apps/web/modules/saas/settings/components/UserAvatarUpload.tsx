@@ -84,9 +84,9 @@ export function UserAvatarUpload({
 
 	return (
 		<>
-		<div className="relative size-24 rounded-full" {...getRootProps()}>
-			{/* @ts-expect-error - React 19 incompatibility with react-dropzone getInputProps types */}
-			<input {...getInputProps()} />
+			<div className="relative size-24 rounded-full" {...getRootProps()}>
+				{/* @ts-expect-error - React 19 incompatibility with react-dropzone getInputProps types */}
+				<input {...getInputProps()} />
 				<UserAvatar
 					className="size-24 cursor-pointer text-xl"
 					avatarUrl={user.image}

@@ -6,13 +6,11 @@ const plausibleUrl = process.env.NEXT_PUBLIC_PLAUSIBLE_URL as string;
 
 export function AnalyticsScript() {
 	return (
-		<>
-			<Script
-				data-domain={plausibleUrl}
-				// @ts-expect-error - Next.js Script src prop not recognized with React 19 types
-				src="https://plausible.io/js/script.js"
-			/>
-		</>
+		<Script
+			data-domain={plausibleUrl}
+			// @ts-expect-error - Next.js Script src prop not recognized with React 19 types
+			src="https://plausible.io/js/script.js"
+		/>
 	);
 }
 

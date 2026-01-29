@@ -1,6 +1,6 @@
 import type { GetEntitlementsOutput } from "@repo/shared";
-import { InternalErrorScreen } from "./InternalErrorScreen";
 import { validateEntitlements } from "../lib/validate-entitlements";
+import { InternalErrorScreen } from "./InternalErrorScreen";
 
 interface DashboardStateMachineProps {
 	entitlements: GetEntitlementsOutput;
@@ -38,8 +38,8 @@ export function DashboardStateMachine({
 				<div className="p-6">
 					<h2 className="text-2xl font-bold mb-4">Trial Available</h2>
 					<p className="text-muted-foreground">
-						State: TRIAL_AVAILABLE (Placeholder - Will be implemented in
-						PR 3)
+						State: TRIAL_AVAILABLE (Placeholder - Will be
+						implemented in PR 3)
 					</p>
 				</div>
 			);

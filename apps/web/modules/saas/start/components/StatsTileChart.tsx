@@ -51,7 +51,6 @@ export function StatsTileChart({
 					</linearGradient>
 				</defs>
 				<CartesianGrid vertical={false} />
-				{/* @ts-expect-error - Recharts components not compatible with React 19 types */}
 				<XAxis
 					dataKey="month"
 					tickLine={false}

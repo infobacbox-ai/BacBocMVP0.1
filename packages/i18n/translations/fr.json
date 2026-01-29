@@ -829,22 +829,55 @@
 	},
 	"backbox": {
 		"dashboard": {
-			"title": "Tableau de bord BackBox",
-			"subtitle": "Vos projets d'analyse stratégique",
-			"placeholder": "Tableau de bord à venir",
-			"implementation": "Il s'agit d'un placeholder. L'implémentation sera complétée dans Slice 1."
+			"title": "BackBox — Dashboard",
+			"badge": {
+				"trial": "Essai gratuit actif",
+				"premium": "✨ Premium"
+			},
+			"newProject": {
+				"title": "Nouveau projet",
+				"button": "Nouveau texte"
+			},
+			"myProjects": {
+				"title": "Mes projets"
+			},
+			"empty": {
+				"title": "Prêt pour ton premier commentaire composé ?",
+				"description": "Suis la méthodologie en 4 piliers pour construire une analyse stratégique solide et structurée.",
+				"checklist": {
+					"accountCreated": "✓ Compte créé",
+					"pasteText": "○ Colle ton texte et lance l'analyse",
+					"followMethod": "○ Suis la méthodologie guidée",
+					"receiveFeedback": "○ Reçois des retours intelligents"
+				}
+			},
+			"trialBanner": {
+				"title": "Essai déjà utilisé",
+				"message": "Ton essai gratuit permet 1 seul projet. Pour créer d'autres projets, passe Premium."
+			},
+			"cta": {
+				"startTrial": "Nouveau texte",
+				"resumeTrial": "Reprendre",
+				"premium": "Passer Premium",
+				"manageBilling": "Gérer l'abonnement"
+			}
 		},
 		"start": {
 			"title": "Démarrer un nouveau projet",
-			"subtitle": "Commencez votre analyse stratégique",
-			"placeholder": "Formulaire de démarrage à venir",
-			"implementation": "Il s'agit d'un placeholder. L'implémentation sera complétée dans Slice 1."
+			"subtitle": "Commencez votre analyse stratégique"
 		},
 		"project": {
 			"title": "Projet",
-			"id": "ID: {id}",
-			"placeholder": "Vue du projet à venir",
-			"implementation": "Il s'agit d'un placeholder. L'implémentation sera complétée dans Slice 1."
+			"id": "ID: {id}"
+		},
+		"error": {
+			"internal": {
+				"title": "Erreur interne",
+				"message": "Une erreur inattendue s'est produite. Nos équipes ont été notifiées.",
+				"code": "Code d'erreur",
+				"backToDashboard": "Retour au dashboard",
+				"contactSupport": "Contacter le support"
+			}
 		}
 	}
 }

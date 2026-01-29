@@ -1,5 +1,5 @@
 import { AiChatSchema } from "@repo/database";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 export const MessageSchema = z.object({
 	role: z.enum(["user", "assistant"]),

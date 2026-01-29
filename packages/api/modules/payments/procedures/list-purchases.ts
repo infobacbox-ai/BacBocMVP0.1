@@ -2,7 +2,7 @@ import {
 	getPurchasesByOrganizationId,
 	getPurchasesByUserId,
 } from "@repo/database";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { protectedProcedure } from "../../../orpc/procedures";
 
 export const listPurchases = protectedProcedure

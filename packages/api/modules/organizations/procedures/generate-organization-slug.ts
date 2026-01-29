@@ -2,7 +2,7 @@ import { ORPCError } from "@orpc/client";
 import { getOrganizationBySlug } from "@repo/database";
 import slugify from "@sindresorhus/slugify";
 import { nanoid } from "nanoid";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { publicProcedure } from "../../../orpc/procedures";
 
 export const generateOrganizationSlug = publicProcedure

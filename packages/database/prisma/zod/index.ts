@@ -3,7 +3,7 @@
  * Auto-generated. Do not edit.
  */
 
-import * as z from 'zod';
+import * as z from 'zod/v4';
 // File: TransactionIsolationLevel.schema.ts
 
 export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted', 'ReadCommitted', 'RepeatableRead', 'Serializable'])

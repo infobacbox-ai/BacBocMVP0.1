@@ -1,6 +1,6 @@
 import { ORPCError } from "@orpc/client";
 import { getInvitationById } from "@repo/database";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { publicProcedure } from "../../../orpc/procedures";
 
 export const getInvitation = publicProcedure

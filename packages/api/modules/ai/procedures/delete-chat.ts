@@ -1,6 +1,6 @@
 import { ORPCError } from "@orpc/client";
 import { deleteAiChat, getAiChatById } from "@repo/database";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { protectedProcedure } from "../../../orpc/procedures";
 import { verifyOrganizationMembership } from "../../organizations/lib/membership";
 

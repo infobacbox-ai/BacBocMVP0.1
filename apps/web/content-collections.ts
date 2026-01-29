@@ -7,7 +7,7 @@ import {
 } from "@fumadocs/content-collections/configuration";
 import rehypeShiki from "@shikijs/rehype";
 import { remarkImage } from "fumadocs-core/mdx-plugins";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { config } from "../../config";
 
 function sanitizePath(path: string) {

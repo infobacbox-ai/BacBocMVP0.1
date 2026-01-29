@@ -22,7 +22,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
+import * as z from "zod/v4";
 
 const formSchema = z.object({
 	password: z.string().min(8),

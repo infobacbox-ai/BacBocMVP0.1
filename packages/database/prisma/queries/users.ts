@@ -1,4 +1,4 @@
-import type { z } from "zod";
+import type { z } from "zod/v4";
 import { db } from "../client";
 import type { UserSchema } from "../zod";
 

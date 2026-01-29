@@ -42,9 +42,9 @@ export default async function DocumentationPage(props: {
 					</p>
 				)}
 				<div className="prose dark:prose-invert max-w-full prose-a:text-foreground prose-p:text-foreground/80">
-				<MDXContent
-					code={page.data.body}
-					components={{
+					<MDXContent
+						code={page.data.body}
+						components={{
 							...defaultMdxComponents,
 							Tabs,
 							Tab,

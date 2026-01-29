@@ -32,16 +32,6 @@
 			"prisma",
 			"prisma-zod-generator",
 			"sharp"
-		],
-		"packageExtensions": {
-			"zod": {
-				"exports": {
-					"./v4/core": {
-						"types": "./index.d.ts",
-						"default": "./index.mjs"
-					}
-				}
-			}
-		}
+		]
 	}
 }

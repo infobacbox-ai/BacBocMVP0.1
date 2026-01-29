@@ -6,7 +6,7 @@ import {
 	type UIMessage,
 } from "@repo/ai";
 import { getAiChatById, updateAiChat } from "@repo/database";
-import z from "zod";
+import z from "zod/v4";
 import { protectedProcedure } from "../../../orpc/procedures";
 import { verifyOrganizationMembership } from "../../organizations/lib/membership";
 

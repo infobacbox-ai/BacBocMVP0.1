@@ -1,7 +1,7 @@
 import { ORPCError } from "@orpc/client";
 import type { UIMessage } from "@repo/ai";
 import { getAiChatsByOrganizationId, getAiChatsByUserId } from "@repo/database";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { protectedProcedure } from "../../../orpc/procedures";
 import { verifyOrganizationMembership } from "../../organizations/lib/membership";
 

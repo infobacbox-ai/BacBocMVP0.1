@@ -6,7 +6,7 @@ import {
 	createCheckoutLink as createCheckoutLinkFn,
 	getCustomerIdFromEntity,
 } from "@repo/payments";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { localeMiddleware } from "../../../orpc/middleware/locale-middleware";
 import { protectedProcedure } from "../../../orpc/procedures";
 

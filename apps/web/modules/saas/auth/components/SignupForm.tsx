@@ -29,7 +29,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { withQuery } from "ufo";
-import { z } from "zod";
+import { z } from "zod/v4";
 import {
 	type OAuthProvider,
 	oAuthProviders,

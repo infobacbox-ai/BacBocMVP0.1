@@ -2,7 +2,7 @@ import { ORPCError } from "@orpc/server";
 import { config } from "@repo/config";
 import { getOrganizationById } from "@repo/database";
 import { getSignedUploadUrl } from "@repo/storage";
-import z from "zod";
+import z from "zod/v4";
 import { protectedProcedure } from "../../../orpc/procedures";
 import { verifyOrganizationMembership } from "../lib/membership";
 

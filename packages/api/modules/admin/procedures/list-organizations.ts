@@ -4,7 +4,7 @@ import {
 	getOrganizationById as getOrganizationByIdFn,
 	getOrganizations,
 } from "@repo/database";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { adminProcedure } from "../../../orpc/procedures";
 
 export const listOrganizations = adminProcedure

@@ -1,6 +1,6 @@
 import { type Config, config } from "@repo/config";
 import type { PurchaseSchema } from "@repo/database";
-import type { z } from "zod";
+import type { z } from "zod/v4";
 
 const plans = config.payments.plans as Config["payments"]["plans"];
 

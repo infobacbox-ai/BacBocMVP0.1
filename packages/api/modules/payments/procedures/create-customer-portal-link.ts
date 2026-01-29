@@ -2,7 +2,7 @@ import { ORPCError } from "@orpc/client";
 import { getOrganizationMembership, getPurchaseById } from "@repo/database";
 import { logger } from "@repo/logs";
 import { createCustomerPortalLink as createCustomerPortalLinkFn } from "@repo/payments";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { localeMiddleware } from "../../../orpc/middleware/locale-middleware";
 import { protectedProcedure } from "../../../orpc/procedures";
 

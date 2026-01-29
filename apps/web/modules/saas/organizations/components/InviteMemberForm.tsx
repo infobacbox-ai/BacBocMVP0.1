@@ -19,7 +19,7 @@ import { useTranslations } from "next-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 const formSchema = z.object({
 	email: z.string().email(),

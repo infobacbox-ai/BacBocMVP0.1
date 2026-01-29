@@ -17,11 +17,10 @@ export function ClientProviders({ children }: PropsWithChildren) {
 				color="var(--color-primary)"
 				options={{ showSpinner: false }}
 				shallowRouting
-				delay={250}
-			>
-				{/* @ts-expect-error - ThemeProvider children prop not recognized with React 19 types */}
-				<ThemeProvider
-					attribute="class"
+			delay={250}
+		>
+			<ThemeProvider
+				attribute="class"
 					disableTransitionOnChange
 					enableSystem
 					defaultTheme={config.ui.defaultTheme}

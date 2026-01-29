@@ -74,6 +74,7 @@ Contract Spec > Acceptance Tests > Decision Log > Figma > Flow Map > PRD
 ### Building a New Screen
 
 1. **Figma Visual Truth** → Screen design, states (loading/empty/error/disabled)
+   - If Figma MCP is configured, you can query designs directly: "What does [ScreenName] look like in Figma?"
 2. **State & Flow Map** → Where this screen fits in the journey
 3. **Contract Spec** → What data/errors to expect
 

@@ -7,9 +7,9 @@ const umamiTrackingId = process.env.NEXT_PUBLIC_UMAMI_TRACKING_ID as string;
 export function AnalyticsScript() {
 	return (
 		<>
-			{/* @ts-expect-error - Next.js Script src prop not recognized with React 19 types */}
 			<Script
 				data-website-id={umamiTrackingId}
+				// @ts-expect-error - Next.js Script src prop not recognized with React 19 types
 				src="https://analytics.eu.umami.is/script.js"
 			/>
 		</>

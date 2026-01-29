@@ -822,5 +822,29 @@
 	"choosePlan": {
 		"title": "Choose your plan",
 		"description": "To continue, please select a plan."
+	},
+	"access": {
+		"title": "Accès",
+		"description": "Vérification de votre accès..."
+	},
+	"backbox": {
+		"dashboard": {
+			"title": "Tableau de bord BackBox",
+			"subtitle": "Vos projets d'analyse stratégique",
+			"placeholder": "Tableau de bord à venir",
+			"implementation": "Il s'agit d'un placeholder. L'implémentation sera complétée dans Slice 1."
+		},
+		"start": {
+			"title": "Démarrer un nouveau projet",
+			"subtitle": "Commencez votre analyse stratégique",
+			"placeholder": "Formulaire de démarrage à venir",
+			"implementation": "Il s'agit d'un placeholder. L'implémentation sera complétée dans Slice 1."
+		},
+		"project": {
+			"title": "Projet",
+			"id": "ID: {id}",
+			"placeholder": "Vue du projet à venir",
+			"implementation": "Il s'agit d'un placeholder. L'implémentation sera complétée dans Slice 1."
+		}
 	}
 }

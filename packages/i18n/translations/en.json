@@ -822,5 +822,29 @@
 	"choosePlan": {
 		"title": "Choose your plan",
 		"description": "To continue, please select a plan."
+	},
+	"access": {
+		"title": "Access",
+		"description": "Checking your access..."
+	},
+	"backbox": {
+		"dashboard": {
+			"title": "BackBox Dashboard",
+			"subtitle": "Your strategic analysis projects",
+			"placeholder": "Dashboard Coming Soon",
+			"implementation": "This is a placeholder. Implementation will be completed in Slice 1."
+		},
+		"start": {
+			"title": "Start New Project",
+			"subtitle": "Begin your strategic analysis",
+			"placeholder": "Start Form Coming Soon",
+			"implementation": "This is a placeholder. Implementation will be completed in Slice 1."
+		},
+		"project": {
+			"title": "Project",
+			"id": "ID: {id}",
+			"placeholder": "Project View Coming Soon",
+			"implementation": "This is a placeholder. Implementation will be completed in Slice 1."
+		}
 	}
 }

@@ -29,16 +29,24 @@ jobs:
       BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'dummy_secret_for_ci_build_at_least_32_chars_long' }}
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - uses: pnpm/action-setup@v4
+          cache: 'pnpm'
+      - name: Create .env for Prisma generate (CI has no repo .env)
+        run: |
+          echo "DATABASE_URL=${DATABASE_URL:-postgresql://user:pass@localhost:5432/dbname}" > .env
+          echo "RESEND_API_KEY=${RESEND_API_KEY:-re_dummy_key_for_ci_build}" >> .env
+          echo "BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-dummy_secret_for_ci_build_at_least_32_chars_long}" >> .env
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Generate Prisma client
-        run: pnpm --filter database generate
+        run: pnpm --filter @repo/database generate
       - name: Build web app (generates content-collections types)
-        run: pnpm --filter web build
+        run: pnpm --filter @repo/web build
       - name: Run type-check
         run: pnpm -w type-check
 
@@ -50,7 +58,6 @@ jobs:
       - name: Check UI/DB boundary (Slices Plan rule)
         run: |
           echo "Checking UI/DB boundary: apps/web must not import packages/database or prisma..."
-          # Pattern from Slices Plan: rg -n "packages/database|prisma" apps/web
           # Exception: next.config.ts uses @prisma/nextjs-monorepo-workaround-plugin (webpack plugin, not runtime)
           if grep -rE "(packages/database|from ['\"]@repo/database|from ['\"]@prisma|from ['\"]prisma)" --include="*.ts" --include="*.tsx" --exclude="next.config.ts" apps/web/; then
             echo "❌ FAIL: Found DB/Prisma imports in apps/web"
@@ -80,14 +87,22 @@ jobs:
       BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'dummy_secret_for_ci_build_at_least_32_chars_long' }}
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - uses: pnpm/action-setup@v4
+          cache: 'pnpm'
+      - name: Create .env for Prisma generate (CI has no repo .env)
+        run: |
+          echo "DATABASE_URL=${DATABASE_URL:-postgresql://user:pass@localhost:5432/dbname}" > .env
+          echo "RESEND_API_KEY=${RESEND_API_KEY:-re_dummy_key_for_ci_build}" >> .env
+          echo "BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-dummy_secret_for_ci_build_at_least_32_chars_long}" >> .env
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Generate Prisma client
-        run: pnpm --filter database generate
+        run: pnpm --filter @repo/database generate
       - name: Build (NODE_ENV=production)
         run: pnpm -w build
 
@@ -101,14 +116,22 @@ jobs:
       BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'dummy_secret_for_ci_build_at_least_32_chars_long' }}
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - uses: pnpm/action-setup@v4
+          cache: 'pnpm'
+      - name: Create .env for Prisma generate (CI has no repo .env)
+        run: |
+          echo "DATABASE_URL=${DATABASE_URL:-postgresql://user:pass@localhost:5432/dbname}" > .env
+          echo "RESEND_API_KEY=${RESEND_API_KEY:-re_dummy_key_for_ci_build}" >> .env
+          echo "BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-dummy_secret_for_ci_build_at_least_32_chars_long}" >> .env
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Generate Prisma client
-        run: pnpm --filter database generate
+        run: pnpm --filter @repo/database generate
       - name: Build and scan for mocks
         run: pnpm check:prod-mocks
 
@@ -123,12 +146,20 @@ jobs:
       BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'dummy_secret_for_ci_build_at_least_32_chars_long' }}
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - uses: pnpm/action-setup@v4
+          cache: 'pnpm'
+      - name: Create .env for Prisma generate (CI has no repo .env)
+        run: |
+          echo "DATABASE_URL=${DATABASE_URL:-postgresql://user:pass@localhost:5432/dbname}" > .env
+          echo "RESEND_API_KEY=${RESEND_API_KEY:-re_dummy_key_for_ci_build}" >> .env
+          echo "BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-dummy_secret_for_ci_build_at_least_32_chars_long}" >> .env
       - name: Install dependencies
-        run: pnpm install && pnpm --filter database generate
+        run: pnpm install --frozen-lockfile && pnpm --filter @repo/database generate
       - name: Run Playwright tests
         run: pnpm --filter web e2e:ci
       - uses: actions/upload-artifact@v4

@@ -26,7 +26,6 @@ export function UserAvatarUpload({
 		orpc.users.avatarUploadUrl.mutationOptions(),
 	);
 
-	// @ts-expect-error - React 19 incompatibility with react-dropzone types
 	const { getRootProps, getInputProps } = useDropzone({
 		onDrop: (acceptedFiles) => {
 			setImage(acceptedFiles[0]);
@@ -85,7 +84,6 @@ export function UserAvatarUpload({
 	return (
 		<>
 			<div className="relative size-24 rounded-full" {...getRootProps()}>
-				{/* @ts-expect-error - React 19 incompatibility with react-dropzone getInputProps types */}
 				<input {...getInputProps()} />
 				<UserAvatar
 					className="size-24 cursor-pointer text-xl"

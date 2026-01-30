@@ -21,7 +21,7 @@ import { Input } from "@ui/components/input";
 import { Textarea } from "@ui/components/textarea";
 import { MailCheckIcon, MailIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useForm, type Resolver } from "react-hook-form";
+import { type Resolver, useForm } from "react-hook-form";
 import type { ZodTypeAny } from "zod";
 
 export function ContactForm() {
@@ -31,9 +31,9 @@ export function ContactForm() {
 	);
 
 	const form = useForm<ContactFormValues>({
-		resolver: zodResolver(contactFormSchema as unknown as ZodTypeAny) as Resolver<
-			ContactFormValues
-		>,
+		resolver: zodResolver(
+			contactFormSchema as unknown as ZodTypeAny,
+		) as Resolver<ContactFormValues>,
 		defaultValues: {
 			name: "",
 			email: "",

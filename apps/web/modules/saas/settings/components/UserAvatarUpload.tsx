@@ -8,7 +8,7 @@ import { orpc } from "@shared/lib/orpc-query-utils";
 import { useMutation } from "@tanstack/react-query";
 import type { HTMLAttributes, InputHTMLAttributes } from "react";
 import { useState } from "react";
-import { useDropzone, type DropzoneOptions } from "react-dropzone";
+import { type DropzoneOptions, useDropzone } from "react-dropzone";
 import { CropImageDialog } from "./CropImageDialog";
 
 export function UserAvatarUpload({

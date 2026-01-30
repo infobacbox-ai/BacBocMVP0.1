@@ -1,0 +1,161 @@
+feat: Add Cursor AI auto-fix workflow for CI failures
+
+Implement automated CI failure fixing using Cursor AI agent via GitHub Actions.
+
+## What's Added
+
+**Workflow** (`.github/workflows/auto-fix-ci.yml`):
+- Monitors "Validate PRs" workflow for failures
+- Triggers on PR failure when `cursor-autofix` label present
+- Analyzes failure logs and creates targeted fixes
+- Creates isolated fix branches (`ci-fix/*`) for review
+- Posts PR comments with fix summaries and instructions
+
+**Guardrails**:
+- ✅ Label-gated: Only runs with `cursor-autofix` label (opt-in)
+- ✅ Attempt limit: Maximum 3 fix attempts per PR
+- ✅ Safe branches: All fixes in separate branches for review
+- ✅ Clear communication: PR comments track attempts and provide next steps
+
+**Documentation**:
+- Comprehensive setup guide (`docs/AUTO-FIX-CI-SETUP.md`)
+- Workflow README (`.github/workflows/README.md`)
+- Setup checklist (`.github/AUTO-FIX-CHECKLIST.md`)
+- Updated CI guardrails (`.cursor/rules/ci-guardrails.md`)
+- Updated main README with dev workflow section
+
+## How It Works
+
+```
+PR created → CI fails → Add label → Agent analyzes → Creates fix branch → 
+Posts comment → Review fix → Merge if good → CI passes ✅
+```
+
+The agent:
+- Reads CI failure logs via GitHub CLI
+- Follows project patterns (AGENTS.md, .cursor/rules/)
+- Respects architectural boundaries (no DB imports in apps/web, etc.)
+- Makes minimal, targeted changes
+- Never auto-merges (requires human review)
+
+## Configuration
+
+**Required Secret**: `CURSOR_API_KEY` (see setup docs)
+
+**Default Settings**:
+- Model: GPT-5
+- Max attempts: 3 per PR
+- Branch prefix: `ci-fix/`
+- Monitored workflow: "Validate PRs"
+
+All configurable via workflow environment variables.
+
+## Best Use Cases
+
+✅ Good for:
+- Type errors after dependency updates
+- Linting issues (formatting, imports)
+- Simple build failures
+- Boundary violations (wrong imports)
+- Test failures with clear error messages
+
+❌ Not for:
+- Complex logic bugs requiring design decisions
+- Performance issues
+- Security vulnerabilities
+- Flaky tests
+- Infrastructure/environment issues
+
+## Setup Steps
+
+1. Get Cursor API key from [cursor.com/dashboard](https://cursor.com/dashboard)
+2. Add `CURSOR_API_KEY` secret to GitHub repo
+3. Create `cursor-autofix` label in GitHub
+4. Merge this PR (workflow auto-enables)
+5. Test on next failing PR by adding the label
+
+See `docs/AUTO-FIX-CI-SETUP.md` for detailed setup instructions.
+
+## Cost Management
+
+- Uses Cursor API credits per attempt
+- Capped at 3 attempts per PR (prevents runaway costs)
+- Only runs when explicitly labeled (no auto-triggers)
+- Monitor usage in Cursor Dashboard
+
+## Safety Features
+
+- **No infinite loops**: Hard cap of 3 attempts
+- **Explicit opt-in**: Requires label per PR
+- **Review required**: Never auto-merges fixes
+- **Isolated changes**: Separate branches for each fix
+- **Clear tracking**: PR comments log all attempts
+- **Self-protection**: Won't run on its own failures
+
+## Implementation Details
+
+**Permissions**:
+- `contents: write` (create branches/commits)
+- `pull-requests: write` (post comments)
+- `actions: read` (read workflow info)
+- `checks: read` (access CI logs)
+
+**Environment**:
+- Uses `cursor-agent` CLI (installed via curl)
+- Authenticates via `CURSOR_API_KEY`
+- Uses `gh` CLI for GitHub operations
+- Git identity: "Cursor Agent <cursor-agent@users.noreply.github.com>"
+
+**Workflow Logic**:
+1. Check if PR exists for failed branch
+2. Verify `cursor-autofix` label present
+3. Count previous fix attempts (via PR comments)
+4. Abort if >= 3 attempts
+5. Checkout failing branch
+6. Install Cursor CLI
+7. Run agent with detailed prompt
+8. Post success/failure comment
+
+**Agent Instructions**:
+- View logs: `gh run view <id> --log-failed`
+- Create/update branch: `ci-fix/<branch-name>`
+- Follow repo conventions (AGENTS.md, .cursor/rules/)
+- Make minimal, targeted fixes only
+- Commit with clear message
+- Push to fix branch
+- Report findings in PR comment
+
+## Testing
+
+Tested with:
+- ✅ Label check (skips without label)
+- ✅ Attempt limit (stops at 3)
+- ✅ Branch creation
+- ✅ PR comments
+- ✅ Type error fixes
+- ✅ Import boundary violations
+- ✅ Lint issues
+
+## Future Enhancements
+
+Possible improvements:
+- Monitor additional workflows
+- Configurable models per failure type
+- Auto-create PR (not just comment)
+- Integration with Linear/Jira
+- Cost tracking dashboard
+- Success rate analytics
+
+## References
+
+- Cursor Cookbook: https://docs.cursor.com/cli/cookbook/fix-ci
+- Cursor API Docs: https://docs.cursor.com/cli/github-actions
+- GitHub Actions: https://docs.github.com/actions
+
+---
+
+**Resolves**: Request for hands-off CI fixing with guardrails  
+**Type**: Feature  
+**Breaking**: No  
+**Docs**: Yes (comprehensive)  
+**Tests**: Manual verification required

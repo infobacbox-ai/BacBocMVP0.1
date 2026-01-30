@@ -1,6 +1,5 @@
 import "server-only";
 import { auth } from "@repo/auth";
-import { getInvitationById } from "@repo/database";
 import { headers } from "next/headers";
 import { cache } from "react";
 
@@ -68,7 +67,10 @@ export const getUserPasskeys = cache(async () => {
 
 export const getInvitation = cache(async (id: string) => {
 	try {
-		return await getInvitationById(id);
+		return await auth.api.getInvitation({
+			query: { id },
+			headers: await headers(),
+		});
 	} catch {
 		return null;
 	}

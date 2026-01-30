@@ -110,7 +110,7 @@ export function OtpForm() {
 										maxLength={6}
 										{...field}
 										autoComplete="one-time-code"
-										onChange={(value) => {
+										onChange={(value: string) => {
 											field.onChange(value);
 											onSubmit();
 										}}

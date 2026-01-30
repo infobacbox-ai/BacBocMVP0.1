@@ -92,8 +92,8 @@ Successfully investigated and fixed all build/type-check issues found in local d
 fix(deps): Resolve build and type-check issues for local development
 ```
 
-**PR Description**: 
-Detailed description available in `.pr-description-build-fixes.md`
+**PR Description**:
+Detailed description captured in this document.
 
 ## Statistics
 
@@ -119,7 +119,7 @@ Detailed description available in `.pr-description-build-fixes.md`
 ## Next Steps
 
 1. **Create GitHub PR** at: https://github.com/infobacbox-ai/BacBocMVP0.1/pull/new/slice-1-build-fixes
-   - Use PR title and description from `.pr-description-build-fixes.md`
+   - Use PR title above and the description from this document
 
 2. **Manual Testing** (optional):
    - Run `pnpm dev` to start dev server
@@ -140,8 +140,7 @@ Detailed description available in `.pr-description-build-fixes.md`
 
 ## Files for Reference
 
-- `.pr-description-build-fixes.md` - Full PR description
-- `SLICE-1-BUILD-FIXES-COMPLETE.md` - This document
+- `docs/archive/slice-1/BUILD-FIXES-COMPLETE.md` - This document
 - `.commit-msg-cat-a.txt` - Category A commit message
 - `.commit-msg-cat-b.txt` - Category B commit message
 - `.commit-msg-cat-c.txt` - Category C commit message

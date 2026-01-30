@@ -161,7 +161,7 @@ grep -rE "from ['\"]@repo/database" apps/web/
 ### Modified Files (10)
 1. `.github/workflows/validate-prs.yml` - Fixed boundary check pattern
 2. `.cursor/rules/ci-guardrails.md` - Added required env vars section
-3. `CI-FIXES-COMPLETE.md` - Documented post-slice corrections
+3. `docs/archive/ci-workflow/CI-FIXES-COMPLETE.md` - Documented post-slice corrections
 4. `IMPORTANT SOURCE OF TRUTH + DOCS/6. Decision Log & Changelog (ADR-lite) — MVP0.md` - Updated ADR-012
 5. `apps/web/app/(saas)/organization-invitation/[invitationId]/page.tsx` - Use API procedure
 6. `apps/web/modules/saas/auth/lib/server.ts` - Use API procedure

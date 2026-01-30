@@ -150,7 +150,7 @@ const data = await orpcClient.organizations.getInvitation({ id });
    - Comprehensive pre-commit checklist
    - Prevents future "5-commit fix" pattern
 
-4. **`SLICE-0.5-FIXES-SUMMARY.md`**
+4. **`docs/archive/slice-0.5/FIXES-SUMMARY.md`**
    - Complete summary of all fixes
    - Verification and next steps
 
@@ -163,7 +163,7 @@ const data = await orpcClient.organizations.getInvitation({ id });
 |------|---------|
 | `.github/workflows/validate-prs.yml` | Fixed boundary check pattern to catch `@repo/database` |
 | `.cursor/rules/ci-guardrails.md` | Added required env vars section |
-| `CI-FIXES-COMPLETE.md` | Added post-slice corrections (Issues 5-7) |
+| `docs/archive/ci-workflow/CI-FIXES-COMPLETE.md` | Added post-slice corrections (Issues 5-7) |
 | `ADR-012` | Updated with Drizzle cleanup note |
 | `apps/web/modules/saas/auth/lib/server.ts` | Changed to use `orpcClient.organizations.getInvitation()` |
 | `apps/web/app/(saas)/organization-invitation/[invitationId]/page.tsx` | Changed to use `orpcClient.organizations.getOrganization()` |
@@ -410,7 +410,7 @@ commit: "Slice X complete" (CI passes immediately)
 For questions about Slice 0.5 documentation:
 - Review this index first
 - Check specific documents listed above
-- Refer to CI-FIXES-COMPLETE.md for historical context
+- Refer to docs/archive/ci-workflow/CI-FIXES-COMPLETE.md for historical context
 
 ---
 

@@ -1,0 +1,28 @@
+name: Verify CURSOR_API_KEY
+
+# Manual workflow to verify CURSOR_API_KEY secret is configured correctly.
+# Run from: Actions → Verify CURSOR_API_KEY → Run workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    name: Check API key
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate CURSOR_API_KEY
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+        run: |
+          if [ -z "$CURSOR_API_KEY" ]; then
+            echo "::error::CURSOR_API_KEY secret is not set."
+            echo ""
+            echo "Add it in: Settings → Secrets and variables → Actions"
+            echo "Name must be exactly: CURSOR_API_KEY"
+            exit 1
+          fi
+          echo "✓ CURSOR_API_KEY is configured (secret is masked in logs)"
+          echo ""
+          echo "Your auto-fix workflow is ready to use. Add the 'cursor-autofix'"
+          echo "label to a PR to enable automatic CI failure fixes."

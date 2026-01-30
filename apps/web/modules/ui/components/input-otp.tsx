@@ -5,6 +5,12 @@ import { OTPInput, OTPInputContext } from "input-otp";
 import { MinusIcon } from "lucide-react";
 import * as React from "react";
 
+type InputOTPSlotState = {
+	char?: string;
+	hasFakeCaret?: boolean;
+	isActive?: boolean;
+};
+
 function InputOTP({
 	className,
 	containerClassName,
@@ -43,9 +49,9 @@ function InputOTPSlot({
 	index: number;
 }) {
 	const inputOTPContext = React.useContext(OTPInputContext);
-	const { char, hasFakeCaret, isActive } =
-		// @ts-expect-error - React 19 stricter JSX checking, input-otp types not fully compatible yet
-		inputOTPContext?.slots[index] ?? {};
+	const slotState = (inputOTPContext?.slots?.[index] ??
+		{}) as InputOTPSlotState;
+	const { char, hasFakeCaret, isActive } = slotState;
 
 	return (
 		<div

@@ -6,6 +6,7 @@ import { Spinner } from "@shared/components/Spinner";
 import { UserAvatar } from "@shared/components/UserAvatar";
 import { orpc } from "@shared/lib/orpc-query-utils";
 import { useMutation } from "@tanstack/react-query";
+import type { HTMLAttributes, InputHTMLAttributes } from "react";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { CropImageDialog } from "./CropImageDialog";
@@ -26,7 +27,6 @@ export function UserAvatarUpload({
 		orpc.users.avatarUploadUrl.mutationOptions(),
 	);
 
-	// @ts-expect-error - React 19 stricter JSX checking, react-dropzone types not fully compatible yet
 	const { getRootProps, getInputProps } = useDropzone({
 		onDrop: (acceptedFiles) => {
 			setImage(acceptedFiles[0]);
@@ -38,6 +38,8 @@ export function UserAvatarUpload({
 		},
 		multiple: false,
 	});
+	const rootProps = getRootProps() as HTMLAttributes<HTMLDivElement>;
+	const inputProps = getInputProps() as InputHTMLAttributes<HTMLInputElement>;
 
 	if (!user) {
 		return null;
@@ -84,9 +86,8 @@ export function UserAvatarUpload({
 
 	return (
 		<>
-			<div className="relative size-24 rounded-full" {...getRootProps()}>
-				{/* @ts-expect-error - React 19 stricter JSX checking, react-dropzone types not fully compatible yet */}
-				<input {...getInputProps()} />
+			<div className="relative size-24 rounded-full" {...rootProps}>
+				<input {...inputProps} />
 				<UserAvatar
 					className="size-24 cursor-pointer text-xl"
 					avatarUrl={user.image}

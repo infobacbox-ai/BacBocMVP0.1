@@ -1,13 +1,16 @@
 "use client";
 
-import Script from "next/script";
+import Script, { type ScriptProps } from "next/script";
+import type { ComponentType } from "react";
 
 const pirschCode = process.env.NEXT_PUBLIC_PIRSCH_CODE as string;
+const ScriptCompat = Script as unknown as ComponentType<
+	ScriptProps & { defer?: boolean }
+>;
 
 export function AnalyticsScript() {
 	return (
-		<Script
-			// @ts-expect-error - React 19 stricter JSX checking, defer prop not in Next.js Script types yet
+		<ScriptCompat
 			defer
 			type="text/javascript"
 			src="https://api.pirsch.io/pirsch-extended.js"

@@ -9,6 +9,23 @@ import {
 import { cn } from "@ui/lib";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
+const ChartXAxis = XAxis as unknown as React.ComponentType<{
+	dataKey: string;
+	tickLine?: boolean;
+	axisLine?: boolean;
+	tickMargin?: number;
+}>;
+const ChartArea = Area as unknown as React.ComponentType<{
+	dataKey: string;
+	type?: "natural" | "linear" | "monotone" | "step";
+	fill?: string;
+	stroke?: string;
+	strokeWidth?: number;
+}>;
+const ChartTooltipCompat = ChartTooltip as unknown as React.ComponentType<{
+	content?: React.ReactNode;
+}>;
+
 interface StatsTileChartProps {
 	data: Array<{ month: string; [key: string]: string | number }>;
 	dataKey: string;
@@ -51,21 +68,18 @@ export function StatsTileChart({
 					</linearGradient>
 				</defs>
 				<CartesianGrid vertical={false} />
-				{/* @ts-expect-error - React 19 stricter JSX checking, recharts types not fully compatible yet */}
-				<XAxis
+				<ChartXAxis
 					dataKey="month"
 					tickLine={false}
 					axisLine={false}
 					tickMargin={8}
 				/>
-				{/* @ts-expect-error - React 19 stricter JSX checking, recharts types not fully compatible yet */}
-				<ChartTooltip
+				<ChartTooltipCompat
 					content={
 						<ChartTooltipContent formatter={tooltipFormatter} />
 					}
 				/>
-				{/* @ts-expect-error - React 19 stricter JSX checking, recharts types not fully compatible yet */}
-				<Area
+				<ChartArea
 					dataKey={dataKey}
 					type="natural"
 					fill={`url(#${gradientId})`}

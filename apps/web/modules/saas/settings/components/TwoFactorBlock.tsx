@@ -28,6 +28,11 @@ import { useEffect, useMemo, useState } from "react";
 import QRCode from "react-qr-code";
 import { toast } from "sonner";
 
+const QRCodeComponent = QRCode as unknown as React.ComponentType<{
+	title?: string;
+	value: string;
+}>;
+
 export function TwoFactorBlock() {
 	const t = useTranslations();
 	const { user, reloadSession } = useSession();
@@ -243,8 +248,10 @@ export function TwoFactorBlock() {
 									)}
 								</p>
 								<Card className="flex flex-col items-center gap-4 p-6">
-									{/* @ts-expect-error - React 19 stricter JSX checking, react-qr-code types not fully compatible yet */}
-									<QRCode title={totpURI} value={totpURI} />
+									<QRCodeComponent
+										title={totpURI}
+										value={totpURI}
+									/>
 
 									{totpURISecret && (
 										<p className="text-xs text-muted-foreground text-center">

@@ -1,13 +1,16 @@
 "use client";
 
-import Script from "next/script";
+import Script, { type ScriptProps } from "next/script";
+import type { ComponentType } from "react";
 
 const plausibleUrl = process.env.NEXT_PUBLIC_PLAUSIBLE_URL as string;
+const ScriptCompat = Script as unknown as ComponentType<
+	ScriptProps & { defer?: boolean }
+>;
 
 export function AnalyticsScript() {
 	return (
-		<Script
-			// @ts-expect-error - React 19 stricter JSX checking, defer prop not in Next.js Script types yet
+		<ScriptCompat
 			defer
 			type="text/javascript"
 			data-domain={plausibleUrl}

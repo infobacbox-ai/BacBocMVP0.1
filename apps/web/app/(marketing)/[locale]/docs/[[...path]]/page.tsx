@@ -44,7 +44,6 @@ export default async function DocumentationPage(props: {
 				<div className="prose dark:prose-invert max-w-full prose-a:text-foreground prose-p:text-foreground/80">
 					<MDXContent
 						code={page.data.body}
-						// @ts-expect-error
 						components={{
 							...defaultMdxComponents,
 							Tabs,
@@ -54,7 +53,7 @@ export default async function DocumentationPage(props: {
 							File,
 							Folder,
 							Files,
-							img: (props) => (
+							img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
 								<ImageZoom
 									{...(props as any)}
 									className="rounded-lg border-4 border-secondary/10"

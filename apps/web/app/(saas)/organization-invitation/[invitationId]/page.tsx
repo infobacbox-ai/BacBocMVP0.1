@@ -1,5 +1,4 @@
 import { auth } from "@repo/auth";
-import { getOrganizationById } from "@repo/database";
 import { OrganizationInvitationModal } from "@saas/organizations/components/OrganizationInvitationModal";
 import { AuthWrapper } from "@saas/shared/components/AuthWrapper";
 import { headers } from "next/headers";
@@ -23,7 +22,13 @@ export default async function OrganizationInvitationPage({
 		redirect("/app");
 	}
 
-	const organization = await getOrganizationById(invitation.organizationId);
+	// Get organization via auth API using slug from invitation
+	const organization = await auth.api.getFullOrganization({
+		query: {
+			organizationSlug: invitation.organizationSlug,
+		},
+		headers: await headers(),
+	}).catch(() => null);
 
 	return (
 		<AuthWrapper>

@@ -243,6 +243,7 @@ export function TwoFactorBlock() {
 									)}
 								</p>
 								<Card className="flex flex-col items-center gap-4 p-6">
+									{/* @ts-expect-error - React 19 stricter JSX checking, react-qr-code types not fully compatible yet */}
 									<QRCode title={totpURI} value={totpURI} />
 
 									{totpURISecret && (

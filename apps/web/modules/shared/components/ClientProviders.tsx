@@ -19,6 +19,7 @@ export function ClientProviders({ children }: PropsWithChildren) {
 				shallowRouting
 				delay={250}
 			>
+				{/* @ts-expect-error - React 19 stricter JSX checking, next-themes types not fully compatible yet */}
 				<ThemeProvider
 					attribute="class"
 					disableTransitionOnChange

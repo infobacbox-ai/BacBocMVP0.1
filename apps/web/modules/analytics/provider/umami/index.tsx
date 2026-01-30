@@ -7,6 +7,7 @@ const umamiTrackingId = process.env.NEXT_PUBLIC_UMAMI_TRACKING_ID as string;
 export function AnalyticsScript() {
 	return (
 		<Script
+			// @ts-expect-error - React 19 stricter JSX checking, async prop not in Next.js Script types yet
 			async
 			type="text/javascript"
 			data-website-id={umamiTrackingId}

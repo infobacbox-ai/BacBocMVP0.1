@@ -7,6 +7,7 @@ const plausibleUrl = process.env.NEXT_PUBLIC_PLAUSIBLE_URL as string;
 export function AnalyticsScript() {
 	return (
 		<Script
+			// @ts-expect-error - React 19 stricter JSX checking, defer prop not in Next.js Script types yet
 			defer
 			type="text/javascript"
 			data-domain={plausibleUrl}

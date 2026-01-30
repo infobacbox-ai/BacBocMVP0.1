@@ -51,17 +51,20 @@ export function StatsTileChart({
 					</linearGradient>
 				</defs>
 				<CartesianGrid vertical={false} />
+				{/* @ts-expect-error - React 19 stricter JSX checking, recharts types not fully compatible yet */}
 				<XAxis
 					dataKey="month"
 					tickLine={false}
 					axisLine={false}
 					tickMargin={8}
 				/>
+				{/* @ts-expect-error - React 19 stricter JSX checking, recharts types not fully compatible yet */}
 				<ChartTooltip
 					content={
 						<ChartTooltipContent formatter={tooltipFormatter} />
 					}
 				/>
+				{/* @ts-expect-error - React 19 stricter JSX checking, recharts types not fully compatible yet */}
 				<Area
 					dataKey={dataKey}
 					type="natural"

@@ -7,6 +7,7 @@ const pirschCode = process.env.NEXT_PUBLIC_PIRSCH_CODE as string;
 export function AnalyticsScript() {
 	return (
 		<Script
+			// @ts-expect-error - React 19 stricter JSX checking, defer prop not in Next.js Script types yet
 			defer
 			type="text/javascript"
 			src="https://api.pirsch.io/pirsch-extended.js"

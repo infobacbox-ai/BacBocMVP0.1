@@ -87,3 +87,30 @@ BETTER_AUTH_SECRET: 'dummy_secret_for_ci_build_at_least_32_chars_long'
 | build | `NODE_ENV=production pnpm -w build` | Yes |
 | prod-mock-ban | `pnpm check:prod-mocks` | Yes |
 | e2e | Playwright | Yes |
+
+## Auto-Fix CI Failures (auto-fix-ci.yml)
+
+An optional Cursor AI agent can automatically fix CI failures. To enable:
+
+1. Add `CURSOR_API_KEY` secret to repo (see [docs/AUTO-FIX-CI-SETUP.md](../../docs/AUTO-FIX-CI-SETUP.md))
+2. Add `cursor-autofix` label to PR
+
+**Guardrails:**
+- Only runs when labeled (opt-in)
+- Maximum 3 attempts per PR
+- Creates separate fix branches for review (`ci-fix/*`)
+- Never auto-merges - requires manual review
+
+**Best for:**
+- Type errors after dependency upgrades
+- Linting issues
+- Boundary violations (wrong imports)
+- Simple build failures
+
+**Not recommended for:**
+- Complex logic bugs
+- Performance issues
+- Flaky tests
+- Security vulnerabilities
+
+The agent follows all rules in this file and AGENTS.md when making fixes.

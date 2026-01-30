@@ -137,27 +137,38 @@ jobs:
           exit 1
       
       - name: Checkout repository
-        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
+        if: ${{ steps.count-attempts.outputs.result != '' && fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
         uses: actions/checkout@v4
         with:
           ref: ${{ fromJSON(steps.pr-info.outputs.result).headBranch }}
           fetch-depth: 0
       
       - name: Install Cursor CLI
-        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
+        if: ${{ steps.count-attempts.outputs.result != '' && fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
         run: |
           echo "📦 Installing Cursor CLI..."
           curl https://cursor.com/install -fsS | bash
           echo "$HOME/.cursor/bin" >> $GITHUB_PATH
       
       - name: Configure Git
-        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
+        if: ${{ steps.count-attempts.outputs.result != '' && fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
         run: |
           git config --global user.name "Cursor Agent"
           git config --global user.email "cursor-agent@users.noreply.github.com"
       
+      - name: Validate CURSOR_API_KEY
+        if: ${{ steps.count-attempts.outputs.result != '' && fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+        run: |
+          if [ -z "$CURSOR_API_KEY" ]; then
+            echo "::error::CURSOR_API_KEY secret is not set. Add it in Settings → Secrets → Actions (name must be exactly CURSOR_API_KEY)"
+            exit 1
+          fi
+          echo "✓ CURSOR_API_KEY is configured"
+      
       - name: Run Cursor AI Fix
-        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
+        if: ${{ steps.count-attempts.outputs.result != '' && fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
         env:
           CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
           MODEL: gpt-5
@@ -173,21 +184,21 @@ jobs:
           echo "Branch: $HEAD_BRANCH"
           echo ""
           
-          cursor-agent << 'PROMPT'
-          You are fixing a CI failure for PR #$PR_NUMBER.
-          
+          cursor-agent << PROMPT
+          You are fixing a CI failure for PR #${PR_NUMBER}.
+
           ## Context
-          - Branch: $HEAD_BRANCH
-          - Base: $BASE_BRANCH
-          - Attempt: $ATTEMPT_NUMBER of 3
-          - PR: https://github.com/${{ github.repository }}/pull/$PR_NUMBER
-          
+          - Branch: ${HEAD_BRANCH}
+          - Base: ${BASE_BRANCH}
+          - Attempt: ${ATTEMPT_NUMBER} of 3
+          - PR: https://github.com/${{ github.repository }}/pull/${PR_NUMBER}
+
           ## Your Task
           1. Check the PR for recent CI failures and examine the failure logs
-             Use: gh pr checks $PR_NUMBER --watch
-             Or: gh run list --branch $HEAD_BRANCH --limit 5
+             Use: gh pr checks ${PR_NUMBER} --watch
+             Or: gh run list --branch ${HEAD_BRANCH} --limit 5
           2. Identify the root cause of the failure
-          3. Create or update a fix branch named: ${BRANCH_PREFIX}/$HEAD_BRANCH
+          3. Create or update a fix branch named: ${BRANCH_PREFIX}/${HEAD_BRANCH}
           4. Make MINIMAL, targeted fixes that:
              - Address only the failing CI checks
              - Follow the repo's existing patterns (see .cursor/rules/ and AGENTS.md)
@@ -195,19 +206,19 @@ jobs:
              - Use the same code style as neighboring files
           5. Commit your changes with a clear message explaining the fix
           6. Push to the fix branch
-          
+
           ## Project-Specific Guidelines
           - This is a Next.js + TypeScript monorepo using pnpm
           - Follow patterns in AGENTS.md and .cursor/rules/
           - CI checks include: lint (Biome), type-check, boundary-checks, build, prod-mock-ban, e2e
           - Never import database packages directly in apps/web (use @repo/api instead)
           - Avoid MSW/mock imports in source code (tests only)
-          
+
           ## Important
           - Be conservative: don't refactor unrelated code
           - If the fix is unclear or requires design decisions, explain what you found and stop
-          - This is attempt $ATTEMPT_NUMBER of 3 - make it count
-          
+          - This is attempt ${ATTEMPT_NUMBER} of 3 - make it count
+
           After fixing, create a quick PR comment with:
           - Summary of what failed
           - What you fixed
@@ -215,7 +226,7 @@ jobs:
           PROMPT
       
       - name: Post fix summary to PR
-        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true && success() }}
+        if: ${{ steps.count-attempts.outputs.result != '' && fromJSON(steps.count-attempts.outputs.result).shouldContinue == true && success() }}
         uses: actions/github-script@v7
         with:
           script: |
@@ -248,7 +259,7 @@ jobs:
             });
       
       - name: Post failure notice to PR
-        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true && failure() }}
+        if: ${{ steps.count-attempts.outputs.result != '' && fromJSON(steps.count-attempts.outputs.result).shouldContinue == true && failure() }}
         uses: actions/github-script@v7
         with:
           script: |

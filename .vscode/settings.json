@@ -27,5 +27,19 @@
 	},
 	"[prisma]": {
 		"editor.defaultFormatter": "Prisma.prisma"
-	}
+	},
+	"cSpell.words": [
+		"biomejs",
+		"dbname",
+		"pirsch",
+		"supastarter",
+		"timebox",
+		"umami"
+	],
+	"github-actions.secrets": [
+		"BETTER_AUTH_SECRET",
+		"CURSOR_API_KEY",
+		"DATABASE_URL",
+		"RESEND_API_KEY"
+	]
 }

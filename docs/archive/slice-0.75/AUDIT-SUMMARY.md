@@ -171,4 +171,4 @@ throw new ORPCError(ERROR_CODES.FORBIDDEN);  // ✅ Correct pattern
 
 ## Full Report
 
-See [`SLICE-0.75-AUDIT-REPORT.md`](./SLICE-0.75-AUDIT-REPORT.md) for detailed findings, code samples, and technical analysis.
+See [`AUDIT-REPORT.md`](./AUDIT-REPORT.md) for detailed findings, code samples, and technical analysis.

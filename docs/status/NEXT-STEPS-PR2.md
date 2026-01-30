@@ -76,7 +76,7 @@ These errors are **NOT introduced by this PR**:
 - Third-party library type incompatibilities (QRCode, Recharts, Dropzone)
 - Script component props in docs page
 
-See `SLICE-1-PR2-CLEANUP-SUMMARY.md` for full analysis.
+See `docs/archive/slice-1/PR2-CLEANUP-SUMMARY.md` for full analysis.
 
 ### Testing
 

@@ -144,7 +144,7 @@ These errors are **React 19 compatibility issues** and **third-party library typ
 
 ### Artifacts created
 - `.commit-msg-pr2a.txt` - Commit message template (can delete)
-- This document - `SLICE-1-PR2-CLEANUP-SUMMARY.md`
+- This document - `docs/archive/slice-1/PR2-CLEANUP-SUMMARY.md`
 
 ## Audit Report Reference
 

@@ -11,8 +11,8 @@
 
 | Document | Purpose | Location |
 |----------|---------|----------|
-| **Summary** | Complete fix overview | [`/SLICE-0.5-FIXES-SUMMARY.md`](../SLICE-0.5-FIXES-SUMMARY.md) |
-| **CI Fixes** | All CI/CD corrections | [`/CI-FIXES-COMPLETE.md`](../CI-FIXES-COMPLETE.md) |
+| **Summary** | Complete fix overview | [`/docs/archive/slice-0.5/FIXES-SUMMARY.md`](../archive/slice-0.5/FIXES-SUMMARY.md) |
+| **CI Fixes** | All CI/CD corrections | [`/docs/archive/ci-workflow/CI-FIXES-COMPLETE.md`](../archive/ci-workflow/CI-FIXES-COMPLETE.md) |
 | **Slice Checklist** | Future slice standards | [`/docs/SLICE_CHECKLIST.md`](./SLICE_CHECKLIST.md) |
 | **CI Guardrails** | Boundary rules & env vars | [`/.cursor/rules/ci-guardrails.md`](../.cursor/rules/ci-guardrails.md) |
 | **Decision Log** | ADR-012 update | [`/IMPORTANT SOURCE OF TRUTH + DOCS/6. Decision Log & Changelog (ADR-lite) — MVP0.md`](../IMPORTANT%20SOURCE%20OF%20TRUTH%20+%20DOCS/6.%20Decision%20Log%20&%20Changelog%20%28ADR-lite%29%20—%20MVP0.md) |
@@ -36,7 +36,7 @@
 
 ### 1. Primary Summary Document
 
-**📄 [`SLICE-0.5-FIXES-SUMMARY.md`](../SLICE-0.5-FIXES-SUMMARY.md)**
+**📄 [`docs/archive/slice-0.5/FIXES-SUMMARY.md`](../archive/slice-0.5/FIXES-SUMMARY.md)**
 
 **Contains:**
 - Executive summary of all blocking items
@@ -52,7 +52,7 @@
 
 ### 2. CI/CD Historical Record
 
-**📄 [`CI-FIXES-COMPLETE.md`](../CI-FIXES-COMPLETE.md)**
+**📄 [`docs/archive/ci-workflow/CI-FIXES-COMPLETE.md`](../archive/ci-workflow/CI-FIXES-COMPLETE.md)**
 
 **Contains:**
 - Complete history of ALL CI fixes (Issues 1-7)
@@ -150,7 +150,7 @@ const data = await orpcClient.organizations.getInvitation({ id });
    - Comprehensive pre-commit checklist
    - Prevents future "5-commit fix" pattern
 
-4. **`SLICE-0.5-FIXES-SUMMARY.md`**
+4. **`docs/archive/slice-0.5/FIXES-SUMMARY.md`**
    - Complete summary of all fixes
    - Verification and next steps
 
@@ -163,7 +163,7 @@ const data = await orpcClient.organizations.getInvitation({ id });
 |------|---------|
 | `.github/workflows/validate-prs.yml` | Fixed boundary check pattern to catch `@repo/database` |
 | `.cursor/rules/ci-guardrails.md` | Added required env vars section |
-| `CI-FIXES-COMPLETE.md` | Added post-slice corrections (Issues 5-7) |
+| `docs/archive/ci-workflow/CI-FIXES-COMPLETE.md` | Added post-slice corrections (Issues 5-7) |
 | `ADR-012` | Updated with Drizzle cleanup note |
 | `apps/web/modules/saas/auth/lib/server.ts` | Changed to use `orpcClient.organizations.getInvitation()` |
 | `apps/web/app/(saas)/organization-invitation/[invitationId]/page.tsx` | Changed to use `orpcClient.organizations.getOrganization()` |
@@ -410,7 +410,7 @@ commit: "Slice X complete" (CI passes immediately)
 For questions about Slice 0.5 documentation:
 - Review this index first
 - Check specific documents listed above
-- Refer to CI-FIXES-COMPLETE.md for historical context
+- Refer to docs/archive/ci-workflow/CI-FIXES-COMPLETE.md for historical context
 
 ---
 

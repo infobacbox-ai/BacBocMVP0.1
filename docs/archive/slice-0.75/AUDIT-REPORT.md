@@ -172,7 +172,7 @@ export async function getEntitlements(): Promise<GetEntitlementsOutput> {
 - ✅ Client wrapper stays unchanged
 
 **Trade-off Accepted:**
-Mock code ships to production (inert). Documented as ADR-SLICE075-01 in `SLICE-0.75-IMPLEMENTATION-SUMMARY.md`. This is acceptable for MVP simplicity.
+Mock code ships to production (inert). Documented as ADR-SLICE075-01 in `IMPLEMENTATION-SUMMARY.md`. This is acceptable for MVP simplicity.
 
 ---
 

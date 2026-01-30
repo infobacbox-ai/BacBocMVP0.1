@@ -1,64 +1,37 @@
 # Validate Local
 
-Run the complete CI validation suite locally before pushing to catch issues early.
+**Goal**: Run CI checks locally before pushing.
 
-## Task
+## Checks
 
-Execute all CI checks in sequence and report results in a clear table format.
+Run in order, stop on first failure:
 
-## Checks to Run
+1. `pnpm -w lint`
+2. `pnpm -w type-check`
+3. `pnpm -w build` (with NODE_ENV=production)
+4. `pnpm check:prod-mocks`
 
-Run these commands in order, capturing the exit status of each:
+## Output
 
-1. **Lint**: `pnpm -w lint`
-2. **Type-check**: `pnpm -w type-check`
-3. **Build**:
-   - macOS/Linux: `NODE_ENV=production pnpm -w build`
-   - Windows (PowerShell): `$env:NODE_ENV="production"; pnpm -w build`
-   - Windows (cmd): `set NODE_ENV=production&& pnpm -w build`
-4. **Prod mock ban**: `pnpm check:prod-mocks`
-
-## Output Format
-
-Present results in a table:
-
-```
-| Check          | Status | Duration | Notes |
-|----------------|--------|----------|-------|
-| Lint           | ✅ PASS | 2.3s     | 413 files checked |
-| Type-check     | ✅ PASS | 15.2s    | 14 packages validated |
-| Build          | ✅ PASS | 45.8s    | Production build successful |
-| Prod mock ban  | ✅ PASS | 1.1s     | No mocks in production output |
-```
+| Check | Status | Duration | Notes |
+|-------|--------|----------|-------|
+| Lint | ✅/❌ | Xs | file count or error summary |
+| Type-check | ✅/❌ | Xs | package count or error location |
+| Build | ✅/❌ | Xs | success or failure reason |
+| Prod mock ban | ✅/❌ | Xs | pass or violations found |
 
 ## On Failure
 
-If any check fails:
-1. Show the **specific error** from the failed check
-2. Provide **minimal fix guidance** based on the error type
-3. Stop at the first failure (don't run remaining checks)
+- Show the specific error with file:line
+- Provide a one-sentence fix suggestion
+- Do NOT continue to next check
 
-## Example Failure Output
+## On Success
 
 ```
-| Check          | Status | Duration | Notes |
-|----------------|--------|----------|-------|
-| Lint           | ✅ PASS | 2.3s     | 413 files checked |
-| Type-check     | ❌ FAIL | 8.1s     | 3 errors in apps/web |
+✅ All checks passed. Safe to push.
 
-### Errors Found
-
-**apps/web/modules/foo.tsx:10:5**
+Next steps:
+- `git push` to trigger CI
+- Or run `create-pr` command
 ```
-error TS2322: Type 'string' is not assignable to type 'number'
-```
-
-**Minimal Fix**: Update the type of `value` prop to `string` or convert the value to `number`.
-```
-
-## Notes
-
-- This mirrors the CI pipeline defined in `.github/workflows/validate-prs.yml`
-- Run this before creating a PR to ensure CI will pass
-- Expected total time: ~60-90 seconds on first run (includes full build)
-- Subsequent runs are faster due to caching

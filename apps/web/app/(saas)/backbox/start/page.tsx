@@ -1,5 +1,6 @@
 import { getSession } from "@saas/auth/lib/server";
 import { PageHeader } from "@saas/shared/components/PageHeader";
+import { getEntitlements } from "@shared/lib/entitlements-client";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
@@ -15,6 +16,23 @@ export default async function BackBoxStartPage() {
 		redirect("/auth/login");
 	}
 
+	// Fetch user entitlements to determine access state
+	const entitlements = await getEntitlements();
+
+	// Enforce one-run trial invariant
+	if (entitlements.accessState === "NONE") {
+		redirect("/access");
+	}
+
+	if (entitlements.accessState === "TRIAL_ACTIVE") {
+		if (!entitlements.trialProjectId) {
+			// This should never happen, but handle gracefully
+			redirect("/access");
+		}
+		redirect(`/backbox/project/${entitlements.trialProjectId}`);
+	}
+
+	// Allow access for TRIAL_AVAILABLE or PAID
 	const t = await getTranslations();
 
 	// TODO (Slice 1): Implement start form with:

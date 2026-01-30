@@ -833,7 +833,17 @@
 	},
 	"backbox": {
 		"dashboard": {
-			"title": "BackBox — Dashboard",
+			"title": {
+				"page": "BackBox — Dashboard",
+				"trialAvailable": "Start Your Free Trial",
+				"trialActive": "Continue Your Project",
+				"paid": "Your Projects"
+			},
+			"description": {
+				"trialAvailable": "Try BackBox with a free one-time trial project.",
+				"trialActive": "Pick up where you left off on your trial project.",
+				"paid": "Create new projects or manage your existing ones."
+			},
 			"badge": {
 				"trial": "Free trial active",
 				"premium": "✨ Premium"
@@ -860,15 +870,35 @@
 				"message": "Your free trial allows only 1 project. To create more projects, upgrade to Premium."
 			},
 			"cta": {
-				"startTrial": "New text",
-				"resumeTrial": "Resume",
+				"startTrial": "Start Trial",
+				"resumeTrial": "Resume Project",
+				"newProject": "New Project",
 				"premium": "Upgrade to Premium",
-				"manageBilling": "Manage subscription"
+				"manageBilling": "Manage Billing"
 			}
 		},
 		"start": {
 			"title": "Start New Project",
-			"subtitle": "Begin your strategic analysis"
+			"subtitle": "Begin your strategic analysis",
+			"form": {
+				"title": {
+					"label": "Project Title",
+					"placeholder": "Enter a title for your project (optional)"
+				},
+				"sourceText": {
+					"label": "Source Text",
+					"placeholder": "Paste or type your content here...",
+					"charCount": "{count} / {max} characters"
+				},
+				"submit": "Start Project",
+				"submitting": "Starting..."
+			},
+			"errors": {
+				"sourceTextRequired": "Source text is required",
+				"sourceTextTooLong": "Source text must be {max} characters or less",
+				"titleTooLong": "Title must be {max} characters or less",
+				"submitFailed": "Failed to start project. Please try again."
+			}
 		},
 		"project": {
 			"title": "Project",
@@ -881,7 +911,27 @@
 				"code": "Error code",
 				"backToDashboard": "Back to dashboard",
 				"contactSupport": "Contact support"
+			},
+			"page": {
+				"title": "Something went wrong",
+				"message": "An error occurred while loading the project. Please try again.",
+				"code": "Error code",
+				"retry": "Try again",
+				"backToDashboard": "Back to dashboard"
+			},
+			"forbidden": {
+				"title": "Access Denied",
+				"message": "You don't have permission to access this project. It may belong to another user or you may need to upgrade your plan.",
+				"backToDashboard": "Go to Dashboard"
+			},
+			"notFound": {
+				"title": "Project Not Found",
+				"message": "The project you're looking for doesn't exist or may have been deleted.",
+				"backToDashboard": "Go to Dashboard"
 			}
+		},
+		"loading": {
+			"project": "Loading project..."
 		}
 	}
 }

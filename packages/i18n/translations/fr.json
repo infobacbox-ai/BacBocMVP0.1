@@ -833,7 +833,17 @@
 	},
 	"backbox": {
 		"dashboard": {
-			"title": "BackBox — Dashboard",
+			"title": {
+				"page": "BackBox — Dashboard",
+				"trialAvailable": "Démarrez votre essai gratuit",
+				"trialActive": "Continuez votre projet",
+				"paid": "Vos projets"
+			},
+			"description": {
+				"trialAvailable": "Essayez BackBox avec un projet d'essai gratuit unique.",
+				"trialActive": "Reprenez là où vous en étiez sur votre projet d'essai.",
+				"paid": "Créez de nouveaux projets ou gérez les existants."
+			},
 			"badge": {
 				"trial": "Essai gratuit actif",
 				"premium": "✨ Premium"
@@ -860,15 +870,35 @@
 				"message": "Ton essai gratuit permet 1 seul projet. Pour créer d'autres projets, passe Premium."
 			},
 			"cta": {
-				"startTrial": "Nouveau texte",
-				"resumeTrial": "Reprendre",
+				"startTrial": "Démarrer l'essai",
+				"resumeTrial": "Reprendre le projet",
+				"newProject": "Nouveau projet",
 				"premium": "Passer Premium",
-				"manageBilling": "Gérer l'abonnement"
+				"manageBilling": "Gérer la facturation"
 			}
 		},
 		"start": {
 			"title": "Démarrer un nouveau projet",
-			"subtitle": "Commencez votre analyse stratégique"
+			"subtitle": "Commencez votre analyse stratégique",
+			"form": {
+				"title": {
+					"label": "Titre du projet",
+					"placeholder": "Entrez un titre pour votre projet (optionnel)"
+				},
+				"sourceText": {
+					"label": "Texte source",
+					"placeholder": "Collez ou tapez votre contenu ici...",
+					"charCount": "{count} / {max} caractères"
+				},
+				"submit": "Démarrer le projet",
+				"submitting": "Démarrage..."
+			},
+			"errors": {
+				"sourceTextRequired": "Le texte source est requis",
+				"sourceTextTooLong": "Le texte source doit contenir {max} caractères ou moins",
+				"titleTooLong": "Le titre doit contenir {max} caractères ou moins",
+				"submitFailed": "Échec du démarrage du projet. Veuillez réessayer."
+			}
 		},
 		"project": {
 			"title": "Projet",
@@ -881,7 +911,27 @@
 				"code": "Code d'erreur",
 				"backToDashboard": "Retour au dashboard",
 				"contactSupport": "Contacter le support"
+			},
+			"page": {
+				"title": "Une erreur s'est produite",
+				"message": "Une erreur s'est produite lors du chargement du projet. Veuillez réessayer.",
+				"code": "Code d'erreur",
+				"retry": "Réessayer",
+				"backToDashboard": "Retour au dashboard"
+			},
+			"forbidden": {
+				"title": "Accès refusé",
+				"message": "Vous n'avez pas la permission d'accéder à ce projet. Il peut appartenir à un autre utilisateur ou vous devrez peut-être mettre à niveau votre plan.",
+				"backToDashboard": "Aller au Dashboard"
+			},
+			"notFound": {
+				"title": "Projet introuvable",
+				"message": "Le projet que vous recherchez n'existe pas ou a peut-être été supprimé.",
+				"backToDashboard": "Aller au Dashboard"
 			}
+		},
+		"loading": {
+			"project": "Chargement du projet..."
 		}
 	}
 }

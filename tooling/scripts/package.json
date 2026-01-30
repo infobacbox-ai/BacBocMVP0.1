@@ -16,7 +16,8 @@
 	"private": true,
 	"scripts": {
 		"create:user": "dotenv -c -e ../../.env -- tsx ./src/create-user.ts",
-		"type-check": "tsc --noEmit"
+		"type-check": "tsc --noEmit",
+		"check:prod-mocks": "tsx src/check-prod-mocks.ts"
 	},
 	"version": "0.0.0"
 }

@@ -8,9 +8,11 @@ export function PostContent({ content }: { content: string }) {
 		<div className="prose dark:prose-invert mx-auto mt-6 max-w-2xl">
 			<MDXContent
 				code={content}
-				components={{
-					a: mdxComponents.a,
-				}}
+				components={
+					{
+						a: mdxComponents.a,
+					} as any
+				}
 			/>
 		</div>
 	);

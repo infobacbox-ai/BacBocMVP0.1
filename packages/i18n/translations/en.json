@@ -822,5 +822,66 @@
 	"choosePlan": {
 		"title": "Choose your plan",
 		"description": "To continue, please select a plan."
+	},
+	"access": {
+		"title": "Access to BackBox",
+		"description": "Start analyzing your texts now",
+		"cta": {
+			"trial": "Start free trial",
+			"premium": "Go Premium"
+		}
+	},
+	"backbox": {
+		"dashboard": {
+			"title": "BackBox — Dashboard",
+			"badge": {
+				"trial": "Free trial active",
+				"premium": "✨ Premium"
+			},
+			"newProject": {
+				"title": "New project",
+				"button": "New text"
+			},
+			"myProjects": {
+				"title": "My projects"
+			},
+			"empty": {
+				"title": "Ready for your first strategic analysis?",
+				"description": "Follow the 4-pillar methodology to build a solid and structured strategic analysis.",
+				"checklist": {
+					"accountCreated": "✓ Account created",
+					"pasteText": "○ Paste your text and start analysis",
+					"followMethod": "○ Follow the guided methodology",
+					"receiveFeedback": "○ Receive intelligent feedback"
+				}
+			},
+			"trialBanner": {
+				"title": "Trial already used",
+				"message": "Your free trial allows only 1 project. To create more projects, upgrade to Premium."
+			},
+			"cta": {
+				"startTrial": "New text",
+				"resumeTrial": "Resume",
+				"premium": "Upgrade to Premium",
+				"manageBilling": "Manage subscription"
+			}
+		},
+		"start": {
+			"title": "Start New Project",
+			"subtitle": "Begin your strategic analysis"
+		},
+		"project": {
+			"title": "Project",
+			"id": "ID: {id}"
+		},
+		"error": {
+			"internal": {
+				"title": "Internal Error",
+				"message": "An unexpected error occurred. Our team has been notified.",
+				"code": "Error code",
+				"backToDashboard": "Back to dashboard",
+				"contactSupport": "Contact support"
+			}
+		}
 	}
 }

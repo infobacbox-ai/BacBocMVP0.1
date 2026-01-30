@@ -1,0 +1,31 @@
+fix(deps): resolve third-party library type incompatibilities with React 19
+
+React 19's stricter JSX type checking caused type errors with several
+third-party libraries that haven't yet updated their type definitions:
+- react-dropzone: useDropzone hook and getInputProps() types
+- react-qr-code: QRCode component class-based types
+- recharts: XAxis, Tooltip, Area component types
+- next-themes: ThemeProvider children prop
+- input-otp: OTPInputContext slots property
+- @hookform/resolvers: zodResolver with Zod schemas
+
+Applied minimal @ts-expect-error directives with clear comments explaining
+the React 19 compatibility issues. Also added explicit type annotation for
+OtpForm onChange handler to resolve implicit any error.
+
+These are non-functional changes that preserve runtime behavior while
+allowing TypeScript compilation to succeed.
+
+Affected files:
+- apps/web/modules/marketing/home/components/ContactForm.tsx
+- apps/web/modules/saas/auth/components/OtpForm.tsx
+- apps/web/modules/saas/organizations/components/OrganizationLogoForm.tsx
+- apps/web/modules/saas/settings/components/TwoFactorBlock.tsx
+- apps/web/modules/saas/settings/components/UserAvatarUpload.tsx
+- apps/web/modules/saas/start/components/StatsTileChart.tsx
+- apps/web/modules/shared/components/ClientProviders.tsx
+- apps/web/modules/ui/components/input-otp.tsx
+
+Root cause: Third-party libraries not yet fully compatible with React 19 types
+Fix: Type suppressions with explanatory comments + explicit type annotation
+Impact: None - runtime behavior unchanged

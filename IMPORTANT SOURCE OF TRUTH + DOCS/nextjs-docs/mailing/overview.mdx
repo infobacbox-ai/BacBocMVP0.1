@@ -1,0 +1,236 @@
+---
+title: Overview
+description: Learn how to send emails in your supastarter application.
+---
+
+For mails supastarter integrates [React Email](https://react.email/) which enables you to write your mails in React.
+
+<Callout emoji="💡">
+  **Why React Email:** <br /> It gives you the ability to style your mails with
+  Tailwind CSS just like in your application. Of course the config from your app
+  is reused for your mails. It also gives you the ability to use components in
+  your mails, so you can build a generic template and use it in all your mails.
+</Callout>
+
+## Providers
+
+In the `mail` package in your repository you can find the `provider` folder.
+
+There are multiple providers available:
+
+<Cards>
+  <Card title="Plunk" href="/docs/nextjs/mailing/plunk" />
+  <Card title="Postmark" href="/docs/nextjs/mailing/postmark" />
+  <Card title="Resend" href="/docs/nextjs/mailing/resend" />
+  <Card title="Nodemailer" href="/docs/nextjs/mailing/nodemailer" />
+  <Card title="Console" href="/docs/nextjs/mailing/console" />
+  <Card title="Custom provider" href="/docs/nextjs/mailing/custom" />
+</Cards>
+
+## Set `from` mail address
+
+Next up, set the `from` mail address in the `config/index.ts` file.
+This is the mail address that will be used as the sender of all mails. Please make sure that the mail address and domain are verified in your mail provider.
+
+```ts
+export const config = {
+  mails: {
+    from: "example@example.com",
+  },
+};
+```
+
+## Mail templates
+
+In the `mail` package in your repository you can find the `templates` folder. In here all your mail templates are
+located.
+
+![Mail template](/images/documentation/mail-template.png)
+
+To preview your templates while developing you can run the following command in your terminal:
+
+```bash copy
+pnpm --filter mail preview
+```
+
+This will start a local server on port `3005` where you can preview your mails.
+
+If this isn't working for you, try running the following command in the `packages/mail/.react-email` subfolder:
+
+```bash copy
+# run this in packages/mail/.react-email
+npm i
+```
+
+### Create a mail template
+
+To create a new mail template, simply create a new .tsx in the `templates` folder that has a default export of a React
+component.
+
+To use variables, just define them as props of your component.
+
+The translation strings for your mail templates are defined in the `packages/i18n/translatinons` folder.
+
+```tsx copy
+import { Link, Text } from "@react-email/components";
+import { createTranslator } from "use-intl/core";
+import type { BaseMailProps } from "../types";
+import PrimaryButton from "./components/PrimaryButton";
+import Wrapper from "./components/Wrapper";
+
+export function MagicLink({
+  url,
+  name,
+  otp,
+  locale,
+  translations,
+}: {
+  url: string;
+  name: string;
+  otp: string;
+} & BaseMailProps): JSX.Element {
+  const t = createTranslator({
+    locale,
+    messages: translations,
+    namespace: "mail",
+  });
+
+  return (
+    <Wrapper>
+      <Text>{t("magicLink.body", { name })}</Text>
+
+      <Text>
+        {t("common.otp")}
+        <br />
+        <strong className="text-2xl font-bold">{otp}</strong>
+      </Text>
+
+      <Text>{t("common.useLink")}</Text>
+
+      <PrimaryButton href={url}>{t("magicLink.login")} &rarr;</PrimaryButton>
+
+      <Text className="text-muted-foreground text-sm">
+        {t("common.openLinkInBrowser")}
+        <Link href={url}>{url}</Link>
+      </Text>
+    </Wrapper>
+  );
+}
+
+export default MagicLink;
+```
+
+Check out the [offical docs of React Email](https://react.email/docs/introduction) for more information on how to use it and the available components.
+
+### Register the mail template
+
+Before you can use your new mail template, you have to register it in the `lib/templates.ts` file:
+
+```ts copy
+import { NewMail } from "../templates/NewMail";
+
+export const mailTemplates = {
+  //...
+  newMail: NewMail,
+};
+```
+
+### Use the mail template
+
+Now you can send a mail with your template using the `sendMail` method in your application:
+
+```ts copy
+import { sendMail } from "mail";
+
+await sendMail({
+  to: "tim@apple.com",
+  template: "newMail",
+  context: {
+    name: "Tim Cook",
+  },
+});
+```
+
+### Edit mail template wrapper
+
+All mail templates are wrapped in the `Wrapper.tsx` component which provides the base layout for the emails and also includes the logo. You most likely want to change the logo to your own logo and if you want to adjust the common layout of the emails you can do so here.
+In here you can also adjust the Tailwind CSS config that will be used across the email templates.
+
+```tsx copy file="packages/mail/src/components/Wrapper.tsx"
+export default function Wrapper({ children }: PropsWithChildren) {
+	return (
+		<Html lang="en">
+			<Head>
+				<Font
+					fontFamily="Inter"
+					fallbackFontFamily="Arial"
+					fontWeight={400}
+					fontStyle="normal"
+				/>
+			</Head>
+			<Tailwind
+				config={{
+					// ...
+				}}
+			>
+				<Section className="bg-background p-4">
+					<Container className="rounded-lg bg-card p-6 text-card-foreground">
+						<Logo />
+						{children}
+					</Container>
+				</Section>
+			</Tailwind>
+		</Html>
+	);
+}
+```
+
+The logo can be adjusted in the `packages/mail/src/components/Logo.tsx` component.
+
+
+### Translations
+
+All mail templates can be translated using the `use-intl` (the core library of `next-intl`) package. The translations are defined in the `packages/i18n/translations` folder.
+
+To use translations in your mail templates, you can use the `createTranslator` function from `use-intl/core`.
+
+Each mail template is passed the `locale` and `translations` props. The `locale` is the current locale of the user and the `translations` are the translations for the current locale.
+
+```ts copy
+import { createTranslator } from "use-intl/core";
+
+export function MyMailTemplate({
+  locale,
+  translations,
+}: BaseMailProps) {
+  const t = createTranslator({
+    locale,
+    messages: translations,
+    namespace: "mail",
+  });
+
+  return (
+    <Wrapper>
+      <Text>{t("myMailTemplate.body")}</Text>
+    </Wrapper>
+  );
+}
+```
+
+Per default the `sendEmail` function will use the default locale you defined in your `config/index.ts`.
+
+The API uses the sendEmail function to send various mails like the magic link mail or the password reset mail.
+In the API we have a `locale` variable available in the context which will be automatically read from the users locale cookie, so it will match the selected language of the user for each request.
+
+If you want to send a mail in a specific language you can pass the `locale` prop to the `sendEmail` function:
+
+```ts copy
+await sendEmail({
+  to: "example@example.com",
+  template: "myMailTemplate",
+  locale: "de",
+  context: {
+    // ...
+  },
+});
+```

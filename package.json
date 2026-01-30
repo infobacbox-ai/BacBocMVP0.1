@@ -9,12 +9,16 @@
 		"lint": "biome lint . ",
 		"check": "biome check",
 		"clean": "turbo clean",
-		"format": "biome format . --write"
+		"format": "biome format . --write",
+		"check:prod-mocks": "pnpm --filter scripts check:prod-mocks"
 	},
 	"engines": {
 		"node": ">=20"
 	},
 	"packageManager": "pnpm@10.14.0",
+	"dependencies": {
+		"tslib": "^2.8.1"
+	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.5",
 		"@repo/tsconfig": "workspace:*",
@@ -31,6 +35,16 @@
 			"prisma",
 			"prisma-zod-generator",
 			"sharp"
-		]
+		],
+		"packageExtensions": {
+			"zod": {
+				"exports": {
+					"./v4/core": {
+						"types": "./index.d.ts",
+						"default": "./index.mjs"
+					}
+				}
+			}
+		}
 	}
 }

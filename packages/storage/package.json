@@ -3,7 +3,8 @@
 		"@aws-sdk/client-s3": "3.437.0",
 		"@aws-sdk/s3-request-presigner": "3.437.0",
 		"@repo/config": "workspace:*",
-		"@repo/logs": "workspace:*"
+		"@repo/logs": "workspace:*",
+		"tslib": "^2.8.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.5",

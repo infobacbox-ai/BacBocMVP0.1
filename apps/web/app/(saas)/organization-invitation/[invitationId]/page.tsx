@@ -1,7 +1,8 @@
-import { getOrganizationById } from "@repo/database";
-import { getInvitation } from "@saas/auth/lib/server";
+import { auth } from "@repo/auth";
 import { OrganizationInvitationModal } from "@saas/organizations/components/OrganizationInvitationModal";
 import { AuthWrapper } from "@saas/shared/components/AuthWrapper";
+import { orpcClient } from "@shared/lib/orpc-client";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function OrganizationInvitationPage({
@@ -11,13 +12,20 @@ export default async function OrganizationInvitationPage({
 }) {
 	const { invitationId } = await params;
 
-	const invitation = await getInvitation(invitationId);
+	const invitation = await auth.api.getInvitation({
+		query: {
+			id: invitationId,
+		},
+		headers: await headers(),
+	});
 
 	if (!invitation) {
 		redirect("/app");
 	}
 
-	const organization = await getOrganizationById(invitation.organizationId);
+	const organization = await orpcClient.organizations.getOrganization({
+		id: invitation.organizationId,
+	});
 
 	return (
 		<AuthWrapper>

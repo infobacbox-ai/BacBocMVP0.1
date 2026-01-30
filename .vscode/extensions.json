@@ -2,6 +2,12 @@
 	"recommendations": [
 		"lokalise.i18n-ally",
 		"bradlc.vscode-tailwindcss",
-		"biomejs.biome"
+		"biomejs.biome",
+		"eamodio.gitlens",
+		"prisma.prisma",
+		"mikestead.dotenv",
+		"streetsidesoftware.code-spell-checker",
+		"humao.rest-client",
+		"editorconfig.editorconfig"
 	]
 }

@@ -6,6 +6,7 @@ import { Step, Steps } from "fumadocs-ui/components/steps";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { DocsBody, DocsPage } from "fumadocs-ui/page";
+import type { MDXComponents } from "mdx/types";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ImgHTMLAttributes } from "react";
@@ -45,22 +46,26 @@ export default async function DocumentationPage(props: {
 				<div className="prose dark:prose-invert max-w-full prose-a:text-foreground prose-p:text-foreground/80">
 					<MDXContent
 						code={page.data.body}
-						components={{
-							...defaultMdxComponents,
-							Tabs,
-							Tab,
-							Steps,
-							Step,
-							File,
-							Folder,
-							Files,
-							img: (props: ImgHTMLAttributes<HTMLImageElement>) => (
-								<ImageZoom
-									{...(props as any)}
-									className="rounded-lg border-4 border-secondary/10"
-								/>
-							),
-						}}
+						components={
+							{
+								...defaultMdxComponents,
+								Tabs,
+								Tab,
+								Steps,
+								Step,
+								File,
+								Folder,
+								Files,
+								img: (
+									props: ImgHTMLAttributes<HTMLImageElement>,
+								) => (
+									<ImageZoom
+										{...(props as any)}
+										className="rounded-lg border-4 border-secondary/10"
+									/>
+								),
+							} as unknown as MDXComponents
+						}
 					/>
 				</div>
 			</DocsBody>

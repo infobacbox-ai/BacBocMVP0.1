@@ -35,5 +35,11 @@
 		"supastarter",
 		"timebox",
 		"umami"
+	],
+	"github-actions.secrets": [
+		"BETTER_AUTH_SECRET",
+		"CURSOR_API_KEY",
+		"DATABASE_URL",
+		"RESEND_API_KEY"
 	]
 }

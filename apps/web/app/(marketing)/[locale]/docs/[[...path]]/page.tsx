@@ -8,6 +8,7 @@ import defaultMdxComponents from "fumadocs-ui/mdx";
 import { DocsBody, DocsPage } from "fumadocs-ui/page";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { ImgHTMLAttributes } from "react";
 import { docsSource } from "../../../../docs-source";
 
 export default async function DocumentationPage(props: {
@@ -53,7 +54,7 @@ export default async function DocumentationPage(props: {
 							File,
 							Folder,
 							Files,
-							img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+							img: (props: ImgHTMLAttributes<HTMLImageElement>) => (
 								<ImageZoom
 									{...(props as any)}
 									className="rounded-lg border-4 border-secondary/10"

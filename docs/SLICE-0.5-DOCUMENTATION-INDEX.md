@@ -11,8 +11,8 @@
 
 | Document | Purpose | Location |
 |----------|---------|----------|
-| **Summary** | Complete fix overview | [`/SLICE-0.5-FIXES-SUMMARY.md`](../SLICE-0.5-FIXES-SUMMARY.md) |
-| **CI Fixes** | All CI/CD corrections | [`/CI-FIXES-COMPLETE.md`](../CI-FIXES-COMPLETE.md) |
+| **Summary** | Complete fix overview | [`/docs/archive/slice-0.5/FIXES-SUMMARY.md`](../archive/slice-0.5/FIXES-SUMMARY.md) |
+| **CI Fixes** | All CI/CD corrections | [`/docs/archive/ci-workflow/CI-FIXES-COMPLETE.md`](../archive/ci-workflow/CI-FIXES-COMPLETE.md) |
 | **Slice Checklist** | Future slice standards | [`/docs/SLICE_CHECKLIST.md`](./SLICE_CHECKLIST.md) |
 | **CI Guardrails** | Boundary rules & env vars | [`/.cursor/rules/ci-guardrails.md`](../.cursor/rules/ci-guardrails.md) |
 | **Decision Log** | ADR-012 update | [`/IMPORTANT SOURCE OF TRUTH + DOCS/6. Decision Log & Changelog (ADR-lite) — MVP0.md`](../IMPORTANT%20SOURCE%20OF%20TRUTH%20+%20DOCS/6.%20Decision%20Log%20&%20Changelog%20%28ADR-lite%29%20—%20MVP0.md) |
@@ -36,7 +36,7 @@
 
 ### 1. Primary Summary Document
 
-**📄 [`SLICE-0.5-FIXES-SUMMARY.md`](../SLICE-0.5-FIXES-SUMMARY.md)**
+**📄 [`docs/archive/slice-0.5/FIXES-SUMMARY.md`](../archive/slice-0.5/FIXES-SUMMARY.md)**
 
 **Contains:**
 - Executive summary of all blocking items
@@ -52,7 +52,7 @@
 
 ### 2. CI/CD Historical Record
 
-**📄 [`CI-FIXES-COMPLETE.md`](../CI-FIXES-COMPLETE.md)**
+**📄 [`docs/archive/ci-workflow/CI-FIXES-COMPLETE.md`](../archive/ci-workflow/CI-FIXES-COMPLETE.md)**
 
 **Contains:**
 - Complete history of ALL CI fixes (Issues 1-7)

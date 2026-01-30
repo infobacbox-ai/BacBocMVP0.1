@@ -4,9 +4,6 @@ on:
   pull_request:
     branches: [main, master]
 
-env:
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
 jobs:
   lint:
     name: Lint code

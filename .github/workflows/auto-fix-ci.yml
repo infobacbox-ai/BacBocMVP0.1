@@ -1,0 +1,248 @@
+name: Auto-fix CI Failures
+
+# This workflow automatically fixes CI failures using Cursor AI agent.
+# Guardrails:
+# 1. Only runs if PR has "cursor-autofix" label
+# 2. Maximum 3 fix attempts per PR
+# 3. Creates fix branches with "ci-fix/" prefix
+
+on:
+  workflow_run:
+    workflows: ["Validate PRs"]  # Monitors the main CI workflow
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+  checks: read
+
+jobs:
+  auto-fix:
+    name: Auto-fix CI failures
+    runs-on: ubuntu-latest
+    
+    # Only run if the workflow failed
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    
+    steps:
+      - name: Get PR information
+        id: pr-info
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head: `${context.repo.owner}:${context.payload.workflow_run.head_branch}`
+            });
+            
+            if (prs.length === 0) {
+              console.log('No open PR found for this branch');
+              return { shouldRun: false };
+            }
+            
+            const pr = prs[0];
+            const labels = pr.labels.map(l => l.name);
+            const hasCursorAutofix = labels.includes('cursor-autofix');
+            
+            console.log(`PR #${pr.number}: ${pr.title}`);
+            console.log(`Labels: ${labels.join(', ')}`);
+            console.log(`Has cursor-autofix label: ${hasCursorAutofix}`);
+            
+            return {
+              shouldRun: hasCursorAutofix,
+              prNumber: pr.number,
+              prTitle: pr.title,
+              baseBranch: pr.base.ref,
+              headBranch: pr.head.ref
+            };
+      
+      - name: Check label requirement
+        if: ${{ fromJSON(steps.pr-info.outputs.result).shouldRun == false }}
+        run: |
+          echo "⏭️ Skipping auto-fix: PR doesn't have 'cursor-autofix' label"
+          echo "To enable auto-fix, add the 'cursor-autofix' label to the PR"
+          exit 0
+      
+      - name: Count previous fix attempts
+        id: count-attempts
+        if: ${{ fromJSON(steps.pr-info.outputs.result).shouldRun == true }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = ${{ fromJSON(steps.pr-info.outputs.result).prNumber }};
+            const MAX_ATTEMPTS = 3;
+            
+            // Get all comments on the PR
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber
+            });
+            
+            // Count comments from this workflow (they contain a marker)
+            const fixComments = comments.filter(c => 
+              c.user.login === 'github-actions[bot]' && 
+              c.body.includes('🤖 Cursor Auto-fix Attempt')
+            );
+            
+            const attemptNumber = fixComments.length + 1;
+            console.log(`Previous attempts: ${fixComments.length}`);
+            console.log(`This would be attempt: ${attemptNumber}`);
+            
+            if (attemptNumber > MAX_ATTEMPTS) {
+              console.log(`⛔ Maximum attempts (${MAX_ATTEMPTS}) reached`);
+              return { shouldContinue: false, attemptNumber, maxAttempts: MAX_ATTEMPTS };
+            }
+            
+            return { shouldContinue: true, attemptNumber, maxAttempts: MAX_ATTEMPTS };
+      
+      - name: Check attempt limit
+        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == false }}
+        run: |
+          ATTEMPT_NUM=${{ fromJSON(steps.count-attempts.outputs.result).attemptNumber }}
+          MAX_ATTEMPTS=${{ fromJSON(steps.count-attempts.outputs.result).maxAttempts }}
+          echo "⛔ Maximum fix attempts ($MAX_ATTEMPTS) reached for this PR"
+          echo "Current attempt would be: $ATTEMPT_NUM"
+          echo ""
+          echo "Manual intervention required. Consider:"
+          echo "  1. Review the previous fix attempts"
+          echo "  2. Fix the issues manually"
+          echo "  3. Remove and re-add the 'cursor-autofix' label to reset counter (use with caution)"
+          exit 1
+      
+      - name: Checkout repository
+        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ fromJSON(steps.pr-info.outputs.result).headBranch }}
+          fetch-depth: 0
+      
+      - name: Install Cursor CLI
+        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
+        run: |
+          echo "📦 Installing Cursor CLI..."
+          curl https://cursor.com/install -fsS | bash
+          echo "$HOME/.cursor/bin" >> $GITHUB_PATH
+      
+      - name: Configure Git
+        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
+        run: |
+          git config --global user.name "Cursor Agent"
+          git config --global user.email "cursor-agent@users.noreply.github.com"
+      
+      - name: Run Cursor AI Fix
+        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true }}
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+          MODEL: gpt-5
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_PREFIX: ci-fix
+          PR_NUMBER: ${{ fromJSON(steps.pr-info.outputs.result).prNumber }}
+          ATTEMPT_NUMBER: ${{ fromJSON(steps.count-attempts.outputs.result).attemptNumber }}
+          BASE_BRANCH: ${{ fromJSON(steps.pr-info.outputs.result).baseBranch }}
+          HEAD_BRANCH: ${{ fromJSON(steps.pr-info.outputs.result).headBranch }}
+        run: |
+          echo "🤖 Starting Cursor AI fix (Attempt $ATTEMPT_NUMBER/3)..."
+          echo "PR: #$PR_NUMBER"
+          echo "Branch: $HEAD_BRANCH"
+          echo ""
+          
+          cursor-agent << 'PROMPT'
+          You are fixing a CI failure for PR #$PR_NUMBER.
+          
+          ## Context
+          - Workflow: ${{ github.event.workflow_run.name }}
+          - Run ID: ${{ github.event.workflow_run.id }}
+          - Branch: $HEAD_BRANCH
+          - Base: $BASE_BRANCH
+          - Attempt: $ATTEMPT_NUMBER of 3
+          
+          ## Your Task
+          1. Examine the CI failure logs using: gh run view ${{ github.event.workflow_run.id }} --log-failed
+          2. Identify the root cause of the failure
+          3. Create or update a fix branch named: ${BRANCH_PREFIX}/$HEAD_BRANCH
+          4. Make MINIMAL, targeted fixes that:
+             - Address only the failing CI checks
+             - Follow the repo's existing patterns (see .cursor/rules/ and AGENTS.md)
+             - Preserve all existing functionality
+             - Use the same code style as neighboring files
+          5. Commit your changes with a clear message explaining the fix
+          6. Push to the fix branch
+          
+          ## Project-Specific Guidelines
+          - This is a Next.js + TypeScript monorepo using pnpm
+          - Follow patterns in AGENTS.md and .cursor/rules/
+          - CI checks include: lint (Biome), type-check, boundary-checks, build, prod-mock-ban, e2e
+          - Never import database packages directly in apps/web (use @repo/api instead)
+          - Avoid MSW/mock imports in source code (tests only)
+          
+          ## Important
+          - Be conservative: don't refactor unrelated code
+          - If the fix is unclear or requires design decisions, explain what you found and stop
+          - This is attempt $ATTEMPT_NUMBER of 3 - make it count
+          
+          After fixing, create a quick PR comment with:
+          - Summary of what failed
+          - What you fixed
+          - Link to view the fix branch
+          PROMPT
+      
+      - name: Post fix summary to PR
+        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true && success() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = ${{ fromJSON(steps.pr-info.outputs.result).prNumber }};
+            const attemptNumber = ${{ fromJSON(steps.count-attempts.outputs.result).attemptNumber }};
+            const headBranch = "${{ fromJSON(steps.pr-info.outputs.result).headBranch }}";
+            const fixBranch = `ci-fix/${headBranch}`;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: `🤖 **Cursor Auto-fix Attempt ${attemptNumber}/3**
+            
+            I've analyzed the CI failure and created fixes on the \`${fixBranch}\` branch.
+            
+            **Workflow Run:** [View logs](${{ github.event.workflow_run.html_url }})
+            **Fix Branch:** \`${fixBranch}\`
+            
+            **Next Steps:**
+            1. Review the fixes: \`git fetch origin ${fixBranch} && git checkout ${fixBranch}\`
+            2. If good, merge into your branch: \`git checkout ${headBranch} && git merge ${fixBranch}\`
+            3. If not, I can try again (${3 - attemptNumber} attempts remaining)
+            
+            ---
+            *This is an automated fix. Always review before merging.*`
+            });
+      
+      - name: Post failure notice to PR
+        if: ${{ fromJSON(steps.count-attempts.outputs.result).shouldContinue == true && failure() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = ${{ fromJSON(steps.pr-info.outputs.result).prNumber }};
+            const attemptNumber = ${{ fromJSON(steps.count-attempts.outputs.result).attemptNumber }};
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: `⚠️ **Cursor Auto-fix Attempt ${attemptNumber}/3 Failed**
+            
+            I tried to fix the CI failure but encountered an error.
+            
+            **Workflow Run:** [View logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            
+            **Next Steps:**
+            1. Check the workflow logs above for details
+            2. Fix manually, or
+            3. Wait for the next CI run (${3 - attemptNumber} attempts remaining)
+            
+            ---
+            *Common issues: CURSOR_API_KEY not set, rate limits, or complex failures requiring human judgment.*`
+            });

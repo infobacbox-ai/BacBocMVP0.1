@@ -1,5 +1,5 @@
 import { ORPCError } from "@orpc/server";
-import type { ProjectDetails } from "@repo/shared";
+import { type ApiError, ERROR_CODES, type ProjectDetails } from "@repo/shared";
 import { z } from "zod";
 import { protectedProcedure } from "../../../orpc/procedures";
 import { checkProjectAccess } from "../lib/guards";
@@ -35,8 +35,13 @@ export const getProject = protectedProcedure
 		// Check project access
 		const hasAccess = await checkProjectAccess(projectId, user.id);
 		if (!hasAccess) {
-			throw new ORPCError("NOT_FOUND", {
+			throw new ORPCError(ERROR_CODES.NOT_FOUND, {
 				message: "Project not found",
+				data: createApiError(
+					ERROR_CODES.NOT_FOUND,
+					404,
+					"Project not found",
+				),
 			});
 		}
 
@@ -51,12 +56,51 @@ export const getProject = protectedProcedure
 			console.log("[DEV] getProject:", { projectId, userId: user.id });
 
 			// Support loading/empty states based on projectId patterns
+			// - "notfound-*" throws NOT_FOUND
+			// - "forbidden-*" throws FORBIDDEN
+			// - "error-*" throws INTERNAL_ERROR
 			// - "empty-*" returns project with no answers
 			// - "loading-*" returns project in initial state
 			// - Default returns project with sample data
 
+			const isNotFoundProject = projectId.startsWith("notfound-");
+			const isForbiddenProject = projectId.startsWith("forbidden-");
+			const isErrorProject = projectId.startsWith("error-");
 			const isEmptyProject = projectId.startsWith("empty-");
 			const isLoadingProject = projectId.startsWith("loading-");
+
+			if (isNotFoundProject) {
+				throw new ORPCError(ERROR_CODES.NOT_FOUND, {
+					message: "Project not found",
+					data: createApiError(
+						ERROR_CODES.NOT_FOUND,
+						404,
+						"Project not found",
+					),
+				});
+			}
+
+			if (isForbiddenProject) {
+				throw new ORPCError(ERROR_CODES.FORBIDDEN, {
+					message: "Access denied",
+					data: createApiError(
+						ERROR_CODES.FORBIDDEN,
+						403,
+						"Access denied",
+					),
+				});
+			}
+
+			if (isErrorProject) {
+				throw new ORPCError(ERROR_CODES.INTERNAL_ERROR, {
+					message: "Internal error",
+					data: createApiError(
+						ERROR_CODES.INTERNAL_ERROR,
+						500,
+						"Internal error",
+					),
+				});
+			}
 
 			const mockProject: ProjectDetails = {
 				project: {
@@ -133,3 +177,11 @@ export const getProject = protectedProcedure
 			finalRecap: null,
 		};
 	});
+
+function createApiError(
+	errorCode: ApiError["errorCode"],
+	status: ApiError["status"],
+	message: string,
+): ApiError {
+	return { status, errorCode, message };
+}

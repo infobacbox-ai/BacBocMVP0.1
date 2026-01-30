@@ -24,11 +24,12 @@ import {
 	XIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { ComponentType, FormEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 import QRCode from "react-qr-code";
 import { toast } from "sonner";
 
-const QRCodeComponent = QRCode as unknown as React.ComponentType<{
+const QRCodeComponent = QRCode as unknown as ComponentType<{
 	title?: string;
 	value: string;
 }>;
@@ -142,7 +143,7 @@ export function TwoFactorBlock() {
 		},
 	});
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (user?.twoFactorEnabled) {

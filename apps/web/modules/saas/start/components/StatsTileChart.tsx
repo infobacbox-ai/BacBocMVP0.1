@@ -7,23 +7,24 @@ import {
 	ChartTooltipContent,
 } from "@ui/components/chart";
 import { cn } from "@ui/lib";
+import type { ComponentType, ReactNode } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
-const ChartXAxis = XAxis as unknown as React.ComponentType<{
+const ChartXAxis = XAxis as unknown as ComponentType<{
 	dataKey: string;
 	tickLine?: boolean;
 	axisLine?: boolean;
 	tickMargin?: number;
 }>;
-const ChartArea = Area as unknown as React.ComponentType<{
+const ChartArea = Area as unknown as ComponentType<{
 	dataKey: string;
 	type?: "natural" | "linear" | "monotone" | "step";
 	fill?: string;
 	stroke?: string;
 	strokeWidth?: number;
 }>;
-const ChartTooltipCompat = ChartTooltip as unknown as React.ComponentType<{
-	content?: React.ReactNode;
+const ChartTooltipCompat = ChartTooltip as unknown as ComponentType<{
+	content?: ReactNode;
 }>;
 
 interface StatsTileChartProps {
@@ -31,7 +32,7 @@ interface StatsTileChartProps {
 	dataKey: string;
 	chartConfig: ChartConfig;
 	gradientId: string;
-	tooltipFormatter: (value: number | string) => React.ReactNode;
+	tooltipFormatter: (value: number | string) => ReactNode;
 	className?: string;
 }
 

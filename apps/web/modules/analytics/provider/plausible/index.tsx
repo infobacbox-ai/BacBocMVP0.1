@@ -1,14 +1,17 @@
 "use client";
 
 import Script from "next/script";
+import type { ComponentProps } from "react";
 
 const plausibleUrl = process.env.NEXT_PUBLIC_PLAUSIBLE_URL as string;
 
 export function AnalyticsScript() {
 	return (
 		<Script
-			data-domain={plausibleUrl}
-			src="https://plausible.io/js/script.js"
+			{...({
+				"data-domain": plausibleUrl,
+				src: "https://plausible.io/js/script.js",
+			} as ComponentProps<typeof Script>)}
 		/>
 	);
 }

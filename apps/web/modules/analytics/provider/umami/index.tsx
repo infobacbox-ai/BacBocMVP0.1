@@ -1,14 +1,17 @@
 "use client";
 
 import Script from "next/script";
+import type { ComponentProps } from "react";
 
 const umamiTrackingId = process.env.NEXT_PUBLIC_UMAMI_TRACKING_ID as string;
 
 export function AnalyticsScript() {
 	return (
 		<Script
-			data-website-id={umamiTrackingId}
-			src="https://analytics.eu.umami.is/script.js"
+			{...({
+				"data-website-id": umamiTrackingId,
+				src: "https://analytics.eu.umami.is/script.js",
+			} as ComponentProps<typeof Script>)}
 		/>
 	);
 }

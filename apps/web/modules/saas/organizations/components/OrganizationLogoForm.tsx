@@ -26,17 +26,19 @@ export function OrganizationLogoForm() {
 		orpc.organizations.createLogoUploadUrl.mutationOptions(),
 	);
 
-	const { getRootProps, getInputProps } = useDropzone({
-		onDrop: (acceptedFiles) => {
-			setImage(acceptedFiles[0]);
-			setCropDialogOpen(true);
-		},
-		accept: {
-			"image/png": [".png"],
-			"image/jpeg": [".jpg", ".jpeg"],
-		},
-		multiple: false,
-	});
+	const { getRootProps, getInputProps } =
+		// @ts-expect-error - React 19 incompatibility with react-dropzone DropzoneOptions
+		useDropzone({
+			onDrop: (acceptedFiles) => {
+				setImage(acceptedFiles[0]);
+				setCropDialogOpen(true);
+			},
+			accept: {
+				"image/png": [".png"],
+				"image/jpeg": [".jpg", ".jpeg"],
+			},
+			multiple: false,
+		});
 
 	if (!activeOrganization) {
 		return null;
@@ -96,6 +98,7 @@ export function OrganizationLogoForm() {
 			description={t("organizations.settings.logo.description")}
 		>
 			<div className="relative size-24 rounded-full" {...getRootProps()}>
+				{/* @ts-expect-error - React 19 incompatibility with react-dropzone getInputProps return type */}
 				<input {...getInputProps()} />
 				<OrganizationLogo
 					className="size-24 cursor-pointer text-xl"

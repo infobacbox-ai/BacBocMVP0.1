@@ -26,17 +26,19 @@ export function UserAvatarUpload({
 		orpc.users.avatarUploadUrl.mutationOptions(),
 	);
 
-	const { getRootProps, getInputProps } = useDropzone({
-		onDrop: (acceptedFiles) => {
-			setImage(acceptedFiles[0]);
-			setCropDialogOpen(true);
-		},
-		accept: {
-			"image/png": [".png"],
-			"image/jpeg": [".jpg", ".jpeg"],
-		},
-		multiple: false,
-	});
+	const { getRootProps, getInputProps } =
+		// @ts-expect-error - React 19 incompatibility with react-dropzone DropzoneOptions
+		useDropzone({
+			onDrop: (acceptedFiles) => {
+				setImage(acceptedFiles[0]);
+				setCropDialogOpen(true);
+			},
+			accept: {
+				"image/png": [".png"],
+				"image/jpeg": [".jpg", ".jpeg"],
+			},
+			multiple: false,
+		});
 
 	if (!user) {
 		return null;
@@ -84,6 +86,7 @@ export function UserAvatarUpload({
 	return (
 		<>
 			<div className="relative size-24 rounded-full" {...getRootProps()}>
+				{/* @ts-expect-error - React 19 incompatibility with react-dropzone getInputProps return type */}
 				<input {...getInputProps()} />
 				<UserAvatar
 					className="size-24 cursor-pointer text-xl"

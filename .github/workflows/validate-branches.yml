@@ -1,0 +1,46 @@
+name: Validate Branches
+
+on:
+  push:
+    branches:
+      - 'feat/**'
+      - 'fix/**'
+      - 'slice-*'
+
+jobs:
+  quick-check:
+    name: Quick validation (lint + type-check)
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://user:pass@localhost:5432/dbname' }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY || 're_dummy_key_for_ci_build' }}
+      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'dummy_secret_for_ci_build_at_least_32_chars_long' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: latest
+
+      - name: Run Biome lint
+        run: biome ci .
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter database generate
+
+      - name: Run type-check
+        run: pnpm -w type-check

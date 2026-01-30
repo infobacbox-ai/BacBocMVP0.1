@@ -10,7 +10,16 @@
 		"check": "biome check",
 		"clean": "turbo clean",
 		"format": "biome format . --write",
-		"check:prod-mocks": "pnpm --filter scripts check:prod-mocks"
+		"check:prod-mocks": "pnpm --filter scripts check:prod-mocks",
+		"prepare": "husky"
+	},
+	"lint-staged": {
+		"*.{ts,tsx}": [
+			"biome check --write"
+		],
+		"*.{json,md}": [
+			"biome format --write"
+		]
 	},
 	"engines": {
 		"node": ">=20"
@@ -24,6 +33,8 @@
 		"@repo/tsconfig": "workspace:*",
 		"@types/node": "^24.10.1",
 		"dotenv-cli": "^11.0.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.2.7",
 		"turbo": "^2.7.2",
 		"typescript": "5.9.3"
 	},

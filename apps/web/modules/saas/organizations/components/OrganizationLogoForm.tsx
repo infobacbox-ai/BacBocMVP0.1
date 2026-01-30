@@ -10,7 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import type { HTMLAttributes, InputHTMLAttributes } from "react";
 import { useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { useDropzone, type DropzoneOptions } from "react-dropzone";
 import { toast } from "sonner";
 import { CropImageDialog } from "../../settings/components/CropImageDialog";
 import { OrganizationLogo } from "./OrganizationLogo";
@@ -28,7 +28,7 @@ export function OrganizationLogoForm() {
 	);
 
 	const { getRootProps, getInputProps } = useDropzone({
-		onDrop: (acceptedFiles) => {
+		onDrop: (acceptedFiles: File[]) => {
 			setImage(acceptedFiles[0]);
 			setCropDialogOpen(true);
 		},
@@ -37,7 +37,7 @@ export function OrganizationLogoForm() {
 			"image/jpeg": [".jpg", ".jpeg"],
 		},
 		multiple: false,
-	});
+	} as unknown as DropzoneOptions);
 	const rootProps = getRootProps() as HTMLAttributes<HTMLDivElement>;
 	const inputProps = getInputProps() as InputHTMLAttributes<HTMLInputElement>;
 

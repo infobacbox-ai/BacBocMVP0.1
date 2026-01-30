@@ -8,7 +8,7 @@ import { orpc } from "@shared/lib/orpc-query-utils";
 import { useMutation } from "@tanstack/react-query";
 import type { HTMLAttributes, InputHTMLAttributes } from "react";
 import { useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { useDropzone, type DropzoneOptions } from "react-dropzone";
 import { CropImageDialog } from "./CropImageDialog";
 
 export function UserAvatarUpload({
@@ -28,7 +28,7 @@ export function UserAvatarUpload({
 	);
 
 	const { getRootProps, getInputProps } = useDropzone({
-		onDrop: (acceptedFiles) => {
+		onDrop: (acceptedFiles: File[]) => {
 			setImage(acceptedFiles[0]);
 			setCropDialogOpen(true);
 		},
@@ -37,7 +37,7 @@ export function UserAvatarUpload({
 			"image/jpeg": [".jpg", ".jpeg"],
 		},
 		multiple: false,
-	});
+	} as unknown as DropzoneOptions);
 	const rootProps = getRootProps() as HTMLAttributes<HTMLDivElement>;
 	const inputProps = getInputProps() as InputHTMLAttributes<HTMLInputElement>;
 

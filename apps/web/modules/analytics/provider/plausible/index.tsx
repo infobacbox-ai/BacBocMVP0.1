@@ -1,18 +1,20 @@
 "use client";
 
-import Script, { type ScriptProps } from "next/script";
+import Script from "next/script";
 import type { ComponentType } from "react";
 
 const plausibleUrl = process.env.NEXT_PUBLIC_PLAUSIBLE_URL as string;
-const ScriptCompat = Script as unknown as ComponentType<
-	ScriptProps & { defer?: boolean }
->;
+type ScriptCompatProps = {
+	src: string;
+	defer?: boolean;
+	[key: string]: unknown;
+};
+const ScriptCompat = Script as unknown as ComponentType<ScriptCompatProps>;
 
 export function AnalyticsScript() {
 	return (
 		<ScriptCompat
 			defer
-			type="text/javascript"
 			data-domain={plausibleUrl}
 			src="https://plausible.io/js/script.js"
 		/>

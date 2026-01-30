@@ -10,6 +10,9 @@ type InputOTPSlotState = {
 	hasFakeCaret?: boolean;
 	isActive?: boolean;
 };
+type InputOTPContextValue = {
+	slots?: InputOTPSlotState[];
+};
 
 function InputOTP({
 	className,
@@ -48,7 +51,9 @@ function InputOTPSlot({
 }: React.ComponentProps<"div"> & {
 	index: number;
 }) {
-	const inputOTPContext = React.useContext(OTPInputContext);
+	const inputOTPContext = React.useContext(
+		OTPInputContext,
+	) as InputOTPContextValue | null;
 	const slotState = (inputOTPContext?.slots?.[index] ??
 		{}) as InputOTPSlotState;
 	const { char, hasFakeCaret, isActive } = slotState;

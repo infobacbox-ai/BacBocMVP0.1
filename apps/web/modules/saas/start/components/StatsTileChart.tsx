@@ -7,14 +7,32 @@ import {
 	ChartTooltipContent,
 } from "@ui/components/chart";
 import { cn } from "@ui/lib";
+import type { ComponentType, ReactNode } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+
+const ChartXAxis = XAxis as unknown as ComponentType<{
+	dataKey: string;
+	tickLine?: boolean;
+	axisLine?: boolean;
+	tickMargin?: number;
+}>;
+const ChartArea = Area as unknown as ComponentType<{
+	dataKey: string;
+	type?: "natural" | "linear" | "monotone" | "step";
+	fill?: string;
+	stroke?: string;
+	strokeWidth?: number;
+}>;
+const ChartTooltipCompat = ChartTooltip as unknown as ComponentType<{
+	content?: ReactNode;
+}>;
 
 interface StatsTileChartProps {
 	data: Array<{ month: string; [key: string]: string | number }>;
 	dataKey: string;
 	chartConfig: ChartConfig;
 	gradientId: string;
-	tooltipFormatter: (value: number | string) => React.ReactNode;
+	tooltipFormatter: (value: number | string) => ReactNode;
 	className?: string;
 }
 
@@ -51,18 +69,18 @@ export function StatsTileChart({
 					</linearGradient>
 				</defs>
 				<CartesianGrid vertical={false} />
-				<XAxis
+				<ChartXAxis
 					dataKey="month"
 					tickLine={false}
 					axisLine={false}
 					tickMargin={8}
 				/>
-				<ChartTooltip
+				<ChartTooltipCompat
 					content={
 						<ChartTooltipContent formatter={tooltipFormatter} />
 					}
 				/>
-				<Area
+				<ChartArea
 					dataKey={dataKey}
 					type="natural"
 					fill={`url(#${gradientId})`}

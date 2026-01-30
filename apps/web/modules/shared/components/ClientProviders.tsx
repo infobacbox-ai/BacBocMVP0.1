@@ -7,7 +7,16 @@ import { ApiClientProvider } from "@shared/components/ApiClientProvider";
 import { ConsentBanner } from "@shared/components/ConsentBanner";
 import { Toaster } from "@ui/components/toast";
 import { ThemeProvider } from "next-themes";
-import type { PropsWithChildren } from "react";
+import type { ComponentType, PropsWithChildren, ReactNode } from "react";
+
+const ThemeProviderShim = ThemeProvider as unknown as ComponentType<{
+	attribute?: string;
+	disableTransitionOnChange?: boolean;
+	enableSystem?: boolean;
+	defaultTheme?: string;
+	themes?: string[];
+	children?: ReactNode;
+}>;
 
 export function ClientProviders({ children }: PropsWithChildren) {
 	return (
@@ -19,7 +28,7 @@ export function ClientProviders({ children }: PropsWithChildren) {
 				shallowRouting
 				delay={250}
 			>
-				<ThemeProvider
+				<ThemeProviderShim
 					attribute="class"
 					disableTransitionOnChange
 					enableSystem
@@ -33,7 +42,7 @@ export function ClientProviders({ children }: PropsWithChildren) {
 						<ConsentBanner />
 						<AnalyticsScript />
 					</ApiClientProvider>
-				</ThemeProvider>
+				</ThemeProviderShim>
 			</ProgressProvider>
 		</ApiClientProvider>
 	);

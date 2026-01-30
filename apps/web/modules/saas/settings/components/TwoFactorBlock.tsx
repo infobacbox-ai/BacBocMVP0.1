@@ -24,9 +24,15 @@ import {
 	XIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { ComponentType, FormEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 import QRCode from "react-qr-code";
 import { toast } from "sonner";
+
+const QRCodeComponent = QRCode as unknown as ComponentType<{
+	title?: string;
+	value: string;
+}>;
 
 export function TwoFactorBlock() {
 	const t = useTranslations();
@@ -137,7 +143,7 @@ export function TwoFactorBlock() {
 		},
 	});
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (user?.twoFactorEnabled) {
@@ -243,7 +249,10 @@ export function TwoFactorBlock() {
 									)}
 								</p>
 								<Card className="flex flex-col items-center gap-4 p-6">
-									<QRCode title={totpURI} value={totpURI} />
+									<QRCodeComponent
+										title={totpURI}
+										value={totpURI}
+									/>
 
 									{totpURISecret && (
 										<p className="text-xs text-muted-foreground text-center">

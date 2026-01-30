@@ -1,12 +1,20 @@
 "use client";
 
 import Script from "next/script";
+import type { ComponentType } from "react";
 
 const umamiTrackingId = process.env.NEXT_PUBLIC_UMAMI_TRACKING_ID as string;
+type ScriptCompatProps = {
+	src: string;
+	async?: boolean;
+	[key: string]: unknown;
+};
+const ScriptCompat = Script as unknown as ComponentType<ScriptCompatProps>;
 
 export function AnalyticsScript() {
 	return (
-		<Script
+		<ScriptCompat
+			async
 			data-website-id={umamiTrackingId}
 			src="https://analytics.eu.umami.is/script.js"
 		/>

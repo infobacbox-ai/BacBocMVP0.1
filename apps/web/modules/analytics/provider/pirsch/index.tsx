@@ -1,12 +1,21 @@
 "use client";
 
 import Script from "next/script";
+import type { ComponentType } from "react";
 
 const pirschCode = process.env.NEXT_PUBLIC_PIRSCH_CODE as string;
+type ScriptCompatProps = {
+	src: string;
+	id?: string;
+	defer?: boolean;
+	[key: string]: unknown;
+};
+const ScriptCompat = Script as unknown as ComponentType<ScriptCompatProps>;
 
 export function AnalyticsScript() {
 	return (
-		<Script
+		<ScriptCompat
+			defer
 			src="https://api.pirsch.io/pirsch-extended.js"
 			id="pirschextendedjs"
 			data-code={pirschCode}

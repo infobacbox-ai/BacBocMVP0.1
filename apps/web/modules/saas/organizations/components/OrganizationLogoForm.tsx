@@ -8,8 +8,9 @@ import { Spinner } from "@shared/components/Spinner";
 import { orpc } from "@shared/lib/orpc-query-utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import type { HTMLAttributes, InputHTMLAttributes } from "react";
 import { useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { type DropzoneOptions, useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { CropImageDialog } from "../../settings/components/CropImageDialog";
 import { OrganizationLogo } from "./OrganizationLogo";
@@ -27,7 +28,7 @@ export function OrganizationLogoForm() {
 	);
 
 	const { getRootProps, getInputProps } = useDropzone({
-		onDrop: (acceptedFiles) => {
+		onDrop: (acceptedFiles: File[]) => {
 			setImage(acceptedFiles[0]);
 			setCropDialogOpen(true);
 		},
@@ -36,7 +37,9 @@ export function OrganizationLogoForm() {
 			"image/jpeg": [".jpg", ".jpeg"],
 		},
 		multiple: false,
-	});
+	} as unknown as DropzoneOptions);
+	const rootProps = getRootProps() as HTMLAttributes<HTMLDivElement>;
+	const inputProps = getInputProps() as InputHTMLAttributes<HTMLInputElement>;
 
 	if (!activeOrganization) {
 		return null;
@@ -95,8 +98,8 @@ export function OrganizationLogoForm() {
 			title={t("organizations.settings.logo.title")}
 			description={t("organizations.settings.logo.description")}
 		>
-			<div className="relative size-24 rounded-full" {...getRootProps()}>
-				<input {...getInputProps()} />
+			<div className="relative size-24 rounded-full" {...rootProps}>
+				<input {...inputProps} />
 				<OrganizationLogo
 					className="size-24 cursor-pointer text-xl"
 					logoUrl={activeOrganization.logo}

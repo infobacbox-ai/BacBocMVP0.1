@@ -8,7 +8,6 @@ export function AnalyticsScript() {
 	return (
 		<Script
 			data-website-id={umamiTrackingId}
-			// @ts-expect-error - React 19 stricter JSX type checking incompatibility with Next.js Script 'src' prop
 			src="https://analytics.eu.umami.is/script.js"
 		/>
 	);

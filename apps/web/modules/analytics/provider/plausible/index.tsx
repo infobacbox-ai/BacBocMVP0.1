@@ -8,7 +8,6 @@ export function AnalyticsScript() {
 	return (
 		<Script
 			data-domain={plausibleUrl}
-			// @ts-expect-error - React 19 stricter JSX type checking incompatibility with Next.js Script 'src' prop
 			src="https://plausible.io/js/script.js"
 		/>
 	);

@@ -220,13 +220,13 @@ For fast checks, run a lightweight scan:
 
 ```bash
 # Search for known problematic patterns
-grep -r "@ts-expect-error.*React 19" apps/ packages/
+rg "@ts-expect-error.*React 19" apps/ packages/
 
 # Count suppressions
 echo "Current React 19 suppressions: [count]"
 
 # Check for @ts-ignore (should be zero)
-grep -r "@ts-ignore" apps/ packages/ --include="*.tsx" --include="*.ts"
+rg "@ts-ignore" apps/ packages/ -g "*.tsx" -g "*.ts"
 ```
 
 Report:

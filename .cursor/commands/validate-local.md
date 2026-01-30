@@ -12,7 +12,10 @@ Run these commands in order, capturing the exit status of each:
 
 1. **Lint**: `pnpm -w lint`
 2. **Type-check**: `pnpm -w type-check`
-3. **Build**: `NODE_ENV=production pnpm -w build`
+3. **Build**:
+   - macOS/Linux: `NODE_ENV=production pnpm -w build`
+   - Windows (PowerShell): `$env:NODE_ENV="production"; pnpm -w build`
+   - Windows (cmd): `set NODE_ENV=production&& pnpm -w build`
 4. **Prod mock ban**: `pnpm check:prod-mocks`
 
 ## Output Format

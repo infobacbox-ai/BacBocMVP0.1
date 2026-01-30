@@ -28,22 +28,17 @@ Successfully implemented all workflow improvements as specified in the plan:
   - JSON/Markdown files: `biome format --write`
 - ✅ **Husky**: Initialized with `prepare` script
 
-### ⚠️ Manual Step Required
+### Hook Configuration
 
-The `.husky/pre-commit` hook needs to be updated manually:
+- ✅ `.husky/pre-commit` runs:
+  ```bash
+  pnpm lint-staged
+  pnpm -w type-check
+  ```
 
-**Current content**:
-```bash
-pnpm test
-```
+### Local Activation
 
-**Required content**:
-```bash
-pnpm lint-staged
-pnpm -w type-check
-```
-
-**To update**: Edit `.husky/pre-commit` and replace the content.
+Run `pnpm install` once after pulling to initialize Husky hooks (the `prepare` script sets up `.husky/_`).
 
 ---
 
@@ -84,7 +79,7 @@ pr-body-temp.txt
 ```
 
 ### Deleted Temporary Files ✅
-Removed 11 temporary workflow files:
+Removed 10 temporary workflow files:
 - `.commit-msg-cat-a.txt`
 - `.commit-msg-cat-b.txt`
 - `.commit-msg-cat-c.txt`
@@ -92,7 +87,6 @@ Removed 11 temporary workflow files:
 - `.commit-msg-pr1.txt`
 - `.commit-msg-pr2.txt`
 - `.commit-msg-pr2a.txt`
-- `.commit-msg-react19-clean.txt`
 - `.commit-msg-slice-075.txt`
 - `.commit-msg.txt`
 - `pr-body-temp.txt`
@@ -187,12 +181,9 @@ All files created successfully:
 
 ### Immediate (Manual)
 
-1. **Update pre-commit hook**:
+1. **Activate Husky hooks** (after pull/install):
    ```bash
-   # Edit .husky/pre-commit
-   # Replace content with:
-   pnpm lint-staged
-   pnpm -w type-check
+   pnpm install
    ```
 
 2. **Test pre-commit hook**:
@@ -239,23 +230,30 @@ All files created successfully:
 ## Files Summary
 
 ### Created (16 files)
-- `.cursor/rules/pre-commit.md`
-- `.cursor/rules/git-workflow.md`
-- `.cursor/rules/react-19-compat.md`
-- `.cursor/commands/validate-local.md`
+- `.cursor/commands/check-react19.md`
 - `.cursor/commands/create-pr.md`
 - `.cursor/commands/sync-branch.md`
-- `.cursor/commands/check-react19.md`
+- `.cursor/commands/validate-local.md`
+- `.cursor/rules/git-workflow.md`
+- `.cursor/rules/pre-commit.md`
+- `.cursor/rules/react-19-compat.md`
+- `.github/CURSOR-API-KEY-MANUAL-STEPS.md`
 - `.github/workflows/validate-branches.yml`
-- `docs/status/` (directory)
+- `.github/workflows/verify-cursor-api-key.yml`
+- `.husky/pre-commit`
+- `.vscode/EXTENSION-OVERLAP-REPORT.md`
 - `WORKFLOW-IMPROVEMENTS-COMPLETE.md` (this file)
+- `docs/status/PR-SPLIT-STATUS.md`
+- `docs/status/PR-SPLIT-SUMMARY.md`
+- `docs/status/PR1-REACT19-READY.md`
 
-### Modified (2 files)
-- `package.json` (added lint-staged config)
+### Modified (3 files)
+- `package.json` (added lint-staged config + prepare)
 - `.gitignore` (added temp file patterns)
+- `pnpm-lock.yaml` (updated dependencies)
 
-### Deleted (11 files)
-- All `.commit-msg-*.txt` files
+### Deleted (10 files)
+- All `.commit-msg-*.txt` files (9 total)
 - `pr-body-temp.txt`
 
 ### Moved (4 files)
@@ -286,5 +284,5 @@ All files created successfully:
 ---
 
 **Implementation**: Complete ✅  
-**Manual step pending**: Update `.husky/pre-commit` hook  
+**Manual step pending**: None  
 **Ready for use**: Yes

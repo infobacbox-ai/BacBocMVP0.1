@@ -1,6 +1,7 @@
 import type { RouterClient } from "@orpc/server";
 import { adminRouter } from "../modules/admin/router";
 import { aiRouter } from "../modules/ai/router";
+import { backboxRouter } from "../modules/backbox/router";
 import { contactRouter } from "../modules/contact/router";
 import { meRouter } from "../modules/me/router";
 import { newsletterRouter } from "../modules/newsletter/router";
@@ -11,6 +12,7 @@ import { publicProcedure } from "./procedures";
 
 export const router = publicProcedure.router({
 	admin: adminRouter,
+	backbox: backboxRouter,
 	newsletter: newsletterRouter,
 	contact: contactRouter,
 	me: meRouter,

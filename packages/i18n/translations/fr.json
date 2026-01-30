@@ -897,7 +897,9 @@
 				"sourceTextRequired": "Le texte source est requis",
 				"sourceTextTooLong": "Le texte source doit contenir {max} caractères ou moins",
 				"titleTooLong": "Le titre doit contenir {max} caractères ou moins",
-				"submitFailed": "Échec du démarrage du projet. Veuillez réessayer."
+				"submitFailed": "Échec du démarrage du projet. Veuillez réessayer.",
+				"trialUsed": "Votre essai gratuit a déjà été utilisé.",
+				"upgradeLink": "Passer à Premium"
 			}
 		},
 		"project": {

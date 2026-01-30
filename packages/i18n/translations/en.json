@@ -897,7 +897,9 @@
 				"sourceTextRequired": "Source text is required",
 				"sourceTextTooLong": "Source text must be {max} characters or less",
 				"titleTooLong": "Title must be {max} characters or less",
-				"submitFailed": "Failed to start project. Please try again."
+				"submitFailed": "Failed to start project. Please try again.",
+				"trialUsed": "Your free trial has already been used.",
+				"upgradeLink": "Upgrade to Premium"
 			}
 		},
 		"project": {

@@ -12,9 +12,9 @@ jobs:
     name: Quick validation (lint + type-check)
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://user:pass@localhost:5432/dbname' }}
-      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY || 're_dummy_key_for_ci_build' }}
-      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'dummy_secret_for_ci_build_at_least_32_chars_long' }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,6 +35,12 @@ jobs:
         with:
           node-version: lts/*
           cache: 'pnpm'
+
+      - name: Set default env for CI
+        run: |
+          echo "DATABASE_URL=${DATABASE_URL:-postgresql://user:pass@localhost:5432/dbname}" >> "$GITHUB_ENV"
+          echo "RESEND_API_KEY=${RESEND_API_KEY:-re_dummy_key_for_ci_build}" >> "$GITHUB_ENV"
+          echo "BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-dummy_secret_for_ci_build_at_least_32_chars_long}" >> "$GITHUB_ENV"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
